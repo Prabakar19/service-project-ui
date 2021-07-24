@@ -1,0 +1,17 @@
+<form class="example-form">
+  <input
+    type="text"
+    placeholder="Search..."
+    [formControl]="control"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let dat of filteredData | async"
+      [value]="dat"
+      (click)="setValueForParent(dat)"
+    >
+      {{ dat }}
+    </mat-option>
+  </mat-autocomplete>
+</form>

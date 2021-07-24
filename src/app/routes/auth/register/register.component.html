@@ -1,0 +1,96 @@
+<mat-card class="form-class">
+  <div *ngIf="!toggle; else elseBlock">
+    <form [formGroup]="registrationForm" (ngSubmit)="addCustomer()">
+      <mat-card-title>Registration</mat-card-title>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" formControlName="firstName" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" formControlName="lastName" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="emailId" />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput placeholder="Phone Number" formControlName="phoneNum" />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'text' : 'password'" />
+          <input matInput [type]="hide ? 'text' : 'password'" formControlName="password" />
+          <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <button type="submit" mat-raised-button color="primary">Next</button>
+      <mat-hint style="color: red">{{ errorMessage ? errorMessage : '' }}</mat-hint>
+    </form>
+  </div>
+
+  <ng-template #elseBlock>
+    <form [formGroup]="addressForm" (ngSubmit)="addCustomerAddress()">
+      <mat-card-title>Registration Form</mat-card-title>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>House Address</mat-label>
+          <input matInput placeholder="Address" formControlName="houseAddress" />
+          <mat-icon matSuffix>home</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Area</mat-label>
+          <input matInput placeholder="Area" formControlName="area" />
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city" />
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="state" />
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <input matInput placeholder="Country" formControlName="country" />
+          <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Pincode</mat-label>
+          <input matInput type="number" placeholder="Pincode" formControlName="pincode" />
+          <mat-icon matSuffix>explore</mat-icon>
+        </mat-form-field>
+      </div>
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+      <mat-hint style="color: red">{{ errorMessage ? errorMessage : '' }}</mat-hint>
+    </form>
+  </ng-template>
+</mat-card>

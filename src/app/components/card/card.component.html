@@ -1,0 +1,33 @@
+<mat-card class="mat-elevation-z4">
+  <table>
+    <tr>
+      <td>
+        <h2>{{ title }}</h2>
+      </td>
+      <td>
+        <h3 *ngIf="discountedCost != cost; else elseBlock">
+          {{ discountedCost | currency: "INR" }}
+          <h4>
+            <del>{{ cost | currency: "INR" }}</del>
+          </h4>
+        </h3>
+        <ng-template #elseBlock>
+          <h3>{{ discountedCost | currency: "INR" }}</h3>
+        </ng-template>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ description }}</td>
+      <td>
+        <i>warranty: {{ warranty ? warranty : 0 }} yrs</i>
+      </td>
+    </tr>
+    <tr colspan="2">
+      <td class="center">
+        <button mat-raised-button color="warn" (click)="callParent()">
+          <mat-icon>delete</mat-icon>Remove
+        </button>
+      </td>
+    </tr>
+  </table>
+</mat-card>

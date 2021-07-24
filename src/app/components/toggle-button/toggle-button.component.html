@@ -1,0 +1,14 @@
+<mat-button-toggle-group
+  #group="matButtonToggleGroup"
+  name="fontStyle"
+  aria-label="Font Style"
+  [value]="selectedVal"
+  (change)="onValChange(group.value)"
+>
+  <mat-button-toggle
+    *ngFor="let item of list"
+    (click)="clickEvent(item)"
+    value="item"
+    >{{ item }}</mat-button-toggle
+  >
+</mat-button-toggle-group>

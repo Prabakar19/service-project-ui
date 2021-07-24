@@ -1,0 +1,40 @@
+<app-nav-bar [userType]="'customer'"></app-nav-bar>
+<div>
+  <h1>My Cart</h1>
+  <app-loader *ngIf="!pageLoaded; else elseBlock"></app-loader>
+
+  <ng-template #elseBlock>
+    <table class="cartList">
+      <tr *ngFor="let serviceList of serviceProviderList">
+        <td>
+          <br />
+          <h3>Bill</h3>
+          <table>
+            <tr *ngFor="let cart of serviceList">
+              <td (click)="getService(serviceList)">
+                <app-card
+                  [title]="cart.serviceName"
+                  [cost]="cart.cost"
+                  [discountedCost]="cart.discountedCost"
+                  [description]="cart.details"
+                  [warranty]="cart.waranty"
+                  (clickEvent)="clickEventHandler(cart)"
+                  class="app-card"
+                ></app-card>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div *ngIf="serviceList">
+      <app-detail-card
+        [details]="serviceList"
+        [tax]="6"
+        (clickEvent)="checkOutHandler(serviceList)"
+      >
+      </app-detail-card>
+    </div>
+  </ng-template>
+</div>
+<app-footer></app-footer>

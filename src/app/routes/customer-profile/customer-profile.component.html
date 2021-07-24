@@ -1,0 +1,96 @@
+<app-nav-bar [userType]="'customer'"></app-nav-bar>
+<app-loader *ngIf="!pageLoaded; else elseBlock"></app-loader>
+
+<ng-template #elseBlock>
+  <div class="header">My Profile</div>
+
+  <div class="content">
+    <app-account-circle
+      [image]="retrievedImage"
+      (changeEvent)="onFileChanged($event)"
+    ></app-account-circle>
+    <p>{{ errorMessage }}</p>
+    <mat-card class="form-class">
+      <form [formGroup]="updationForm">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input type="text" matInput formControlName="firstName" />
+          <mat-icon matSuffix (click)="openDialog('firstName')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input type="text" matInput formControlName="lastName" />
+          <mat-icon matSuffix (click)="openDialog('lastName')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="emailId" />
+          <mat-icon matSuffix (click)="openDialog('emailId')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input type="text" matInput formControlName="phoneNum" />
+          <mat-icon matSuffix (click)="openDialog('phoneNum')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="text" matInput formControlName="password" />
+          <mat-icon matSuffix (click)="openDialog('password')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+      </form>
+
+      <form [formGroup]="addressForm">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>House Address</mat-label>
+          <input type="text" matInput formControlName="houseAddress" />
+          <mat-icon matSuffix (click)="openDialog1('houseAddress')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Area</mat-label>
+          <input type="text" matInput formControlName="area" />
+          <mat-icon matSuffix (click)="openDialog1('area')">mode_edit</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>City</mat-label>
+          <input type="email" matInput formControlName="city" />
+          <mat-icon matSuffix (click)="openDialog1('city')">mode_edit</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>State</mat-label>
+          <input type="text" matInput formControlName="state" />
+          <mat-icon matSuffix (click)="openDialog1('state')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Country</mat-label>
+          <input type="text" matInput formControlName="country" />
+          <mat-icon matSuffix (click)="openDialog1('country')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Pincode</mat-label>
+          <input type="number" matInput formControlName="pincode" />
+          <mat-icon matSuffix (click)="openDialog1('pincode')"
+            >mode_edit</mat-icon
+          >
+        </mat-form-field>
+      </form>
+    </mat-card>
+  </div>
+</ng-template>
+
+<app-footer></app-footer>

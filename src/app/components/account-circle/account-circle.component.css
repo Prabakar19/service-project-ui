@@ -1,0 +1,16 @@
+mat-icon {
+  font-size: 150px;
+  cursor: pointer;
+}
+
+.icon {
+  margin-left: 40%;
+  margin-top: 3%;
+}
+
+img {
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 5px;
+}

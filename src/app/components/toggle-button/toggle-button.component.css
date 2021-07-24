@@ -1,0 +1,10 @@
+mat-button-toggle-group {
+  padding-right: 5px;
+  padding-left: 5px;
+  background-image: linear-gradient(#d9a7c7, #fffcdc);
+}
+mat-button-toggle {
+  background-image: linear-gradient(#d9a7c7, #fffcdc);
+  font-weight: bold;
+  color: grey;
+}

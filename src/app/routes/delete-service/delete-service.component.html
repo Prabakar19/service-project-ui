@@ -1,0 +1,14 @@
+<mat-card class="form-class">
+    <form [formGroup]="deleteServiceForm" (ngSubmit)="deleteService()">
+        <mat-card-title>Delete Service</mat-card-title>
+
+        <p>Are you sure, You want to delete this Service? </p>
+
+        <button class="cancel" type="submit" mat-raised-button color="primary" (click)="deleteService()"
+            mat-dialog-close>Delete</button>
+        <button class="cancel" type="submit" mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+        <div>
+            <mat-hint style="color: red">{{ errorMessage }}</mat-hint>
+        </div>
+    </form>
+</mat-card>

@@ -1,0 +1,42 @@
+<app-nav-bar [userType]="'sp'"></app-nav-bar>
+<div>
+  <table>
+    <tr>
+      <td>Service Provider Id</td>
+      <td>{{ store.serviceProviderId }}</td>
+    </tr>
+    <tr>
+      <td>Total Revenues</td>
+      <td>{{ store.totalRevenue }}</td>
+    </tr>
+    <tr>
+      <td>Total Revenues GST</td>
+      <td>{{ store.totalRevenueGst }}</td>
+    </tr>
+    <tr>
+      <td>No of Billings</td>
+      <td>{{ store.noOfBills }}</td>
+    </tr>
+    <tr>
+      <td>No of unique customers</td>
+      <td>{{ store.noOfUniquesCustomers }}</td>
+    </tr>
+  </table>
+  <div class="chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- have ng if -->
+  <mat-list>
+    <mat-list-item *ngFor="let trans of store.transactions">
+      <h3 matLine>{{ trans.transactionId }}</h3>
+      <p matLine>{{ trans.date }}</p>
+      <p matLine class="demo-2">{{ trans.transactionAmount }}</p>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div class="align-center">
+  <button mat-button (click)="download()">Download Billings</button>
+  <button mat-button (click)="downloadServices()">Download Service</button>
+  <button mat-button (click)="downloadCustomers()">Download Customers</button>
+</div>

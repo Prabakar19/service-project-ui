@@ -1,0 +1,43 @@
+<app-nav-bar [userType]="'customer'"></app-nav-bar>
+
+<app-loader *ngIf="!pageLoaded; else elseBlock"></app-loader>
+
+<ng-template #elseBlock>
+  <div class="jumbotron" id="header1" [style.background]="retrievedImage">
+    <div class="banner">
+      <h1>{{ serviceProvider.companyName }}</h1>
+      <app-rating [rating]="3"></app-rating>
+      <mat-label>{{ serviceProvider.emailId }}</mat-label>
+      <mat-label>{{ serviceProvider.phoneNum }}</mat-label>
+    </div>
+  </div>
+
+  <div class="major-card">
+    <app-service-card
+      class="inline"
+      [service]="service"
+      [description]="service.details"
+      [button]="true"
+      (clickEvent)="addToCart(service)"
+    >
+    </app-service-card>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="sub-title">Other Services</div>
+  <table>
+    <tr *ngFor="let service of serviceProvider.services">
+      <td>
+        <mat-divider></mat-divider>
+        <app-service-card
+          class="inline"
+          [service]="service"
+          [button]="true"
+          (clickEvent)="addToCart(service)"
+        >
+        </app-service-card>
+      </td>
+    </tr>
+  </table>
+</ng-template>
+
+<app-footer></app-footer>

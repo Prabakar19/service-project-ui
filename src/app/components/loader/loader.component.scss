@@ -1,0 +1,15 @@
+mat-spinner {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  z-index: 99;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 98;
+  background-color: rgba(0, 0, 0, 0.5);
+}

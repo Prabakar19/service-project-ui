@@ -1,0 +1,6 @@
+<button mat-button color="warn" class="inline">
+  <div *ngFor="let l of list" class="inline">
+    <mat-icon class="inline">star</mat-icon>
+    <mat-icon *ngIf="halfStar && l == rate" class="inline">star_half</mat-icon>
+  </div>
+</button>

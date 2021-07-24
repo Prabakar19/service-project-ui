@@ -1,0 +1,20 @@
+<div class="icon">
+  <div *ngIf="image; else elseBlock">
+    <label for="myfile"><img [src]="image" width="150" height="150" /></label>
+    <input
+      type="file"
+      id="myfile"
+      style="display: none"
+      (change)="callParent($event)"
+    />
+  </div>
+  <ng-template #elseBlock>
+    <label for="myfile1"><mat-icon>account_circle</mat-icon></label>
+    <input
+      type="file"
+      id="myfile1"
+      style="display: none"
+      (change)="callParent($event)"
+    />
+  </ng-template>
+</div>

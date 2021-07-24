@@ -1,0 +1,82 @@
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 45%;
+  font-size: 30px;
+  font-weight: bold;
+}
+.header-button {
+  margin-left: 45%;
+  margin-top: 20px;
+}
+
+.content {
+  width: 60%;
+  margin-left: 20%;
+}
+
+.list-item {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+mat-card {
+  width: 100%;
+}
+table {
+  border-collapse: separate;
+  width: 100%;
+}
+.status-btn {
+  cursor: auto;
+  float: right;
+  display: inline;
+}
+
+.inline {
+  display: inline-block;
+}
+
+td,
+tr {
+  width: 150px;
+  text-align: center;
+  padding: 5px;
+}
+.cell {
+  padding-top: 20px;
+}
+p {
+  font-size: 15px;
+}
+
+mat-divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#amt {
+  float: right;
+}
+
+button {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.rating {
+  padding: 7px;
+  padding-top: 3px;
+}
+
+mat-icon {
+  font-size: 30px;
+}
+mat-icon:hover {
+  cursor: pointer;
+}
+.gold-icon {
+  color: #f5af19;
+}
+
+.report-btn {
+  float: right;
+}

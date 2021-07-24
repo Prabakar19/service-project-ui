@@ -1,0 +1,42 @@
+<div class="container">
+  <img class="inline" mat-card-image [src]="retrievedImage" />
+  <div class="inline card-content">
+    <mat-card>
+      <mat-card-title>{{ service.serviceName }}</mat-card-title>
+      <mat-card-content
+        >{{ service.details }}
+        <h4 *ngIf="service.discountAvailability; else elseBlock">
+          ₹{{ calculateCost(service.cost, service.discount) }}
+          <span
+            ><del>₹{{ service.cost }}</del> {{ service.discount }}% off</span
+          >
+        </h4>
+        <ng-template #elseBlock>
+          <h2>₹{{ service.cost }}</h2>
+        </ng-template>
+        <app-rating [rating]="service.rating"></app-rating>
+        <mat-card-content>{{ description }}</mat-card-content>
+      </mat-card-content>
+      <div *ngIf="button" class="card-button">
+        <button
+          mat-raised-button
+          (click)="editService(service.serviceId)"
+          class="inline"
+        >
+          Edit Service
+        </button>
+        <button
+          mat-raised-button
+          (click)="deleteService(service.serviceId)"
+          class="inline"
+        >
+          Delete Service
+        </button>
+        <!-- <div *ngIf="cartAddedVisible" class="inline">
+                    <mat-icon color="warn">check_circle</mat-icon>
+                    <mat-label>Added</mat-label>
+                </div> -->
+      </div>
+    </mat-card>
+  </div>
+</div>

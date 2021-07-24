@@ -1,0 +1,23 @@
+.cartList {
+  width: 60%;
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+.float {
+  float: right;
+}
+button {
+  margin: 5px;
+}
+app-detail-card {
+  width: 30%;
+  height: 400px;
+  float: left;
+  margin: 8px;
+  display: inline;
+  position: fixed;
+}
+h1 {
+  margin-left: 20px;
+}

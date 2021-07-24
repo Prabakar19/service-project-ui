@@ -1,0 +1,13 @@
+p {
+  font-family: Lato;
+}
+
+.fs-Logo {
+  width: 150px;
+  height: 150px;
+  fill:red;
+}
+
+.mat-icon {
+  fill:red;
+}

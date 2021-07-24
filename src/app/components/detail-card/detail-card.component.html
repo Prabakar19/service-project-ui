@@ -1,0 +1,31 @@
+<app-loader *ngIf="!pageLoaded; else elseBlock"></app-loader>
+<ng-template #elseBlock>
+  <mat-card>
+    <mat-card-title>{{ title }}</mat-card-title>
+
+    <mat-card-content>
+      <table>
+        <tr *ngFor="let detail of details">
+          <td>{{ detail.serviceName }}</td>
+          <td class="align">₹ {{ detail.discountedCost }}</td>
+        </tr>
+
+        <tr>
+          <td>Tax</td>
+          <td>{{ tax }}%</td>
+        </tr>
+        <tr>
+          <td><h2>Total</h2></td>
+          <td>
+            <h2>{{ calculateTotal() | currency: "INR" }}</h2>
+          </td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="callParent()">
+        CHECKOUT
+      </button></mat-card-actions
+    >
+  </mat-card>
+</ng-template>

@@ -1,0 +1,20 @@
+mat-card-title {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+button {
+  width: 100%;
+  background-image: linear-gradient(to right, #fc4a1a, #f7b733);
+}
+
+table {
+  width: 100%;
+}
+td {
+  padding: 10px;
+}
+
+.align {
+  margin-right: 0px;
+}

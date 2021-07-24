@@ -1,0 +1,17 @@
+img {
+  height: 130px;
+  width: 35%;
+  margin: 2%;
+}
+
+mat-card {
+  padding: 2px;
+  background-image: linear-gradient(to right, #ff8008, #ffc837);
+}
+
+.inline {
+  display: inline;
+}
+.content {
+  margin-left: 300px;
+}

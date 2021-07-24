@@ -1,0 +1,70 @@
+<app-nav-bar [userType]="'sp'"></app-nav-bar>
+<p style="size: 40">
+  Status :
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold" (click)="selectedValueHandler('ongoing')"
+      >Ongoing</mat-button-toggle
+    >
+    <mat-button-toggle
+      value="italic"
+      (click)="selectedValueHandler('completed')"
+      >Completed</mat-button-toggle
+    >
+    <!-- <mat-button-toggle value="underline" (click)="selectedValueHandler('completed')">Completed</mat-button-toggle> -->
+  </mat-button-toggle-group>
+</p>
+
+<mat-card class="mat-elevation-z4">
+  <mat-grid-list cols="1" rowHeight="10:1.5">
+    <mat-grid-tile *ngFor="let cat of billings" (click)="goListPage(cat)">
+      <mat-icon>add_shopping_cart</mat-icon>
+      <mat-card-content> Billing Id : {{ cat.billingId }} </mat-card-content>
+      <hr />
+      <h2>Bill Cost:</h2>
+      <div>
+        <mat-card-title>{{ cat.cost }}</mat-card-title>
+      </div>
+      <hr />
+      <h2>Billinng Amount GST:</h2>
+
+      <mat-card-title>{{ cat.totalCost }}</mat-card-title>
+      <hr />
+
+      <mat-selection-list
+        #shoes
+        (selectionChange)="onSelection($event, shoes.selectedOptions)"
+      >
+        <div *ngFor="let trans of cat.transactions">
+          <mat-list-option
+            *ngIf="trans.status === selectedToggle"
+            [value]="trans.transactionId"
+          >
+            <div>
+              Id :
+              {{ trans.transactionId }}
+              Amount :
+              {{ trans.transactionAmount }}
+            </div>
+          </mat-list-option>
+        </div>
+      </mat-selection-list>
+
+      <p>Transaction selected: {{ shoes.selectedOptions.selected.length }}</p>
+      <!-- <mat-card-subtitle *ngFor="let trans of cat.transactions">
+              
+                 <h3>{{   trans.transactionAmount }}</h3>
+                 <p>      </p>
+                 <h4>{{   trans.status }}</h4>
+                 <mat-card-actions>
+                  <button mat-button>ACCEPT</button>
+                  <button mat-button>REJECT</button> 
+                </mat-card-actions>
+
+          </mat-card-subtitle> -->
+      <hr />
+      <mat-card-actions>
+        <button mat-button (click)="accept(shoes)">CHANGE STATUS</button>
+      </mat-card-actions>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>

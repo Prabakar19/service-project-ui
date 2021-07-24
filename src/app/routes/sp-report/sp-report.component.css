@@ -1,0 +1,63 @@
+/* #myChart
+{
+    display:inline-block;
+    border:0;
+    width:100px;
+    height:30px;
+    position: relative;
+    -webkit-transition: all 400ms ease-in;
+    -webkit-transform: scale(1); 
+    -ms-transition: all 400ms ease-in;
+    -ms-transform: scale(1); 
+    -moz-transition: all 400ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 400ms ease-in;
+    transform: scale(1);   
+
+} */
+
+body {
+  background: #1d1f20;
+  padding: 16px;
+}
+
+canvas {
+  border: 1px dotted red;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 40vh;
+  width: 40vw;
+}
+
+button {
+  background-image: linear-gradient(to right, #f7797d, #fbd786);
+  margin: 10px;
+}
+.align-center {
+  margin-left: 30%;
+  margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  float: left;
+  margin-left: 20px;
+  margin-left: 20px;
+}
+
+th,
+td {
+  padding: 12px 15px;
+}
+
+mat-list {
+  margin-left: 10px;
+}
