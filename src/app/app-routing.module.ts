@@ -8,7 +8,7 @@ import { HomePageComponent } from './routes/home-page/home-page.component';
 import { ListServicesPageComponent } from './routes/list-services-page/list-services-page.component';
 import { LoginComponent } from './routes/auth/login/login.component';
 import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
-import { RegistrationSpComponent } from './routes/registration-sp/registration-sp.component';
+import { RegistrationSpComponent } from './routes/auth/spregister/spregister.component';
 import { RegisterationComponent } from './routes/auth/register/register.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
@@ -19,7 +19,7 @@ import { AddServiceComponent } from './routes/add-service/add-service.component'
 import { ModifyServiceComponent } from './routes/modify-service/modify-service.component';
 import { DeleteServiceComponent } from './routes/delete-service/delete-service.component';
 import { SocialMediaLoginComponent } from './routes/social-media-login/social-media-login.component';
-import { SPLoginComponentComponent } from './routes/service-provider-login-component/service-provider-login-component.component';
+import { SPLoginComponent } from './routes/auth/splogin/splogin-component';
 import { AuthguardspGuard } from './Guards/authguardsp.guard';
 import { SpProfileComponent } from './routes/sp-profile/sp-profile.component';
 
@@ -28,14 +28,14 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'register', component: RegisterationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registersp', component: RegistrationSpComponent },
+  { path: 'spregister', component: RegistrationSpComponent },
 
   { path: 'spreport', component: SpReportComponent },
   { path: 'addservice', component: AddServiceComponent },
   { path: 'modifyservice', component: ModifyServiceComponent },
   { path: 'deleteservice', component: DeleteServiceComponent },
   { path: 'sociallogin', component: SocialMediaLoginComponent },
-  { path: 'splogin', component: SPLoginComponentComponent },
+  { path: 'splogin', component: SPLoginComponent },
   {
     path: 'customerdashboard',
     component: CustomerDashboardComponent,

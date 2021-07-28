@@ -1,19 +1,11 @@
 <mat-toolbar color="secondary">
-  <div class="title" routerLink="/customerdashboard">
+  <div class="title" (click)="titleClick()">
     <span>At Your Service</span>
   </div>
   <div class="navbar-align-last" *ngIf="userType == 'customer'">
     <mat-icon tooltip="My booking" routerLink="/mybooking">favorite</mat-icon>
-    <mat-icon
-      matBadge="{{ badge ? badge : '' }}"
-      matBadgeColor="warn"
-      tooltip="Cart"
-      routerLink="/cart"
-      >shopping_cart</mat-icon
-    >
-    <mat-icon tooltip="My Profile" [matMenuTriggerFor]="menu"
-      >account_circle</mat-icon
-    >
+    <mat-icon matBadge="{{ badge ? badge : '' }}" matBadgeColor="warn" tooltip="Cart" routerLink="/cart">shopping_cart</mat-icon>
+    <mat-icon tooltip="My Profile" [matMenuTriggerFor]="menu">account_circle</mat-icon>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/profile">Edit Profile</button>
       <button mat-menu-item (click)="logout()">Logout</button>
@@ -21,21 +13,13 @@
   </div>
 
   <div class="navbar-align-last" *ngIf="userType == 'sp'">
-    <mat-icon tooltip="Management" routerLink="/spmanage"
-      >format_list_bulleted</mat-icon
-    >
-    <mat-icon tooltip="Report" routerLink="/spreport"
-      >dashboard_customize</mat-icon
-    >
-    <mat-icon tooltip="My Profile" [matMenuTriggerFor]="menu"
-      >account_circle</mat-icon
-    >
+    <mat-icon tooltip="Management" routerLink="/spmanage">format_list_bulleted</mat-icon>
+    <mat-icon tooltip="Report" routerLink="/spreport">dashboard_customize</mat-icon>
+    <mat-icon tooltip="My Profile" [matMenuTriggerFor]="menu">account_circle</mat-icon>
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/profile">Edit Profile</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
-    <mat-icon>account_circle</mat-icon>
-    <mat-label>Profile</mat-label>
   </div>
 </mat-toolbar>

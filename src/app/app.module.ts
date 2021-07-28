@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterationComponent } from './routes/auth/register/register.component';
-import { RegistrationSpComponent } from './routes/registration-sp/registration-sp.component';
+import { RegistrationSpComponent } from './routes/auth/spregister/spregister.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './routes/auth/login/login.component';
 import { HomePageComponent } from './routes/home-page/home-page.component';
@@ -43,7 +43,7 @@ import { EmptyCardComponent } from './components/empty-card/empty-card.component
 import { FooterComponent } from './components/nav-bar/footer/footer.component';
 import { SocialMediaLoginComponent } from './routes/social-media-login/social-media-login.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
-import { SPLoginComponentComponent } from './routes/service-provider-login-component/service-provider-login-component.component';
+import { SPLoginComponent } from './routes/auth/splogin/splogin-component';
 import { AuthguardspGuard } from './Guards/authguardsp.guard';
 import { SpProfileComponent } from './routes/sp-profile/sp-profile.component';
 
@@ -63,7 +63,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     RegisterationComponent,
     RegistrationSpComponent,
     LoginComponent,
-    SPLoginComponentComponent,
+    SPLoginComponent,
     HomePageComponent,
     CustomerDashboardComponent,
     NavBarComponent,

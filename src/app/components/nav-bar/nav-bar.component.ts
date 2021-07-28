@@ -24,6 +24,14 @@ export class NavBarComponent implements OnInit {
     if (this.cartList) this.badge = this.cartList.length;
   }
 
+  titleClick() {
+    if (this.userType == 'customer') {
+      this.router.navigateByUrl('/customerdashboard');
+    }
+    if (this.userType == 'sp') {
+      this.router.navigateByUrl('/spdashboard');
+    }
+  }
   logout() {
     this.authService.logout();
     this.authService.spLogout();

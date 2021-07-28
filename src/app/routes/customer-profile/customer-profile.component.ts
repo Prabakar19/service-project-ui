@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer';
-import { CustomerServices } from 'src/app/services/customerService/customer.service';
+import { CustomerServices } from 'src/app/services/customer-service/customer.service';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 @Component({

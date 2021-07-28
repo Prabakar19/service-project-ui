@@ -4,16 +4,31 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
-import { CustomerServices } from 'src/app/services/customerService/customer.service';
+import { CustomerServices } from 'src/app/services/customer-service/customer.service';
+import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { setErrorMessage, setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { addCustomerAddress, addCustomerAddressSucess, custLogin, custLoginSucess, custRegister, custRegisterSucess } from './auth.actions';
+import {
+  addCustomerAddress,
+  addCustomerAddressSucess,
+  addSPAddress,
+  addSPAddressSucess,
+  custLogin,
+  custLoginSucess,
+  custRegister,
+  custRegisterSucess,
+  spLogin,
+  spLoginSucess,
+  spRegister,
+  spRegisterSucess,
+} from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private customerService: CustomerServices,
+    private serviceProviderService: ServiceProviderService,
     private store: Store<AppState>,
     private router: Router
   ) {}
@@ -47,6 +62,36 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  spLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(spLogin),
+      mergeMap((action) =>
+        this.serviceProviderService.serviceProviderLoginRequest({ emailId: action.emailId, password: action.password }).pipe(
+          map((serviceProvider) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return spLoginSucess({ serviceProvider });
+          }),
+          catchError((error) => {
+            const errorMsg = error.error;
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        )
+      )
+    )
+  );
+
+  spLoginRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(spLoginSucess),
+        tap((action) => {
+          this.router.navigateByUrl('/spdashboard');
+        })
+      ),
+    { dispatch: false }
+  );
+
   custRegister$ = createEffect(() =>
     this.actions$.pipe(
       ofType(custRegister),
@@ -72,12 +117,10 @@ export class AuthEffects {
       mergeMap((action) => {
         return this.customerService.addCustomerAddressReq(action.address, action.customerId).pipe(
           map((customer) => {
-            console.log(customer);
             this.store.dispatch(setLoading({ status: false }));
             return addCustomerAddressSucess({ customer });
           }),
           catchError((error) => {
-            console.log(error);
             const errorMsg = 'error';
             this.store.dispatch(setLoading({ status: false }));
             return of(setErrorMessage({ errorMsg }));
@@ -93,6 +136,57 @@ export class AuthEffects {
         ofType(addCustomerAddressSucess),
         tap((action) => {
           this.router.navigateByUrl('/customerdashboard');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  spRegister$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(spRegister),
+      mergeMap((action) => {
+        return this.serviceProviderService.addServiceProviderRequest(action.serviceProvider).pipe(
+          map((serviceProvider) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return spRegisterSucess({ serviceProvider });
+          }),
+          catchError((error) => {
+            const errorMsg = 'Service Provider already exist with these details';
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        );
+      })
+    )
+  );
+
+  spAddressAdd$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSPAddress),
+      mergeMap((action) => {
+        console.log(action);
+        return this.serviceProviderService.addServiceProviderAddressReq(action.serviceAddress, action.spId).pipe(
+          map((serviceProvider) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return addSPAddressSucess({ serviceProvider });
+          }),
+          catchError((error) => {
+            console.log(error);
+            const errorMsg = 'error';
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        );
+      })
+    )
+  );
+
+  spRegisterRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addSPAddressSucess),
+        tap((action) => {
+          this.router.navigateByUrl('/spdashboard');
         })
       ),
     { dispatch: false }

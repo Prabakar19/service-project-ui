@@ -1,7 +1,7 @@
 <mat-card class="form-class">
   <div *ngIf="!toggle; else elseBlock">
     <form [formGroup]="registrationSpForm" (ngSubmit)="addServiceProvider()">
-      <mat-card-title>Service Provider Registrationn</mat-card-title>
+      <mat-card-title>Service Provider Registration</mat-card-title>
       <div>
         <mat-form-field appearance="outline">
           <mat-label>Company Name</mat-label>
@@ -34,9 +34,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput [type]="hide ? 'text' : 'password'" placeholder="Password" formControlName="password" />
-          <mat-icon matSuffix (click)="hide = !hide">{{
-            hide ? "visibilit" : "visibility_off"
-            }}</mat-icon>
+          <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibilit' : 'visibility_off' }}</mat-icon>
         </mat-form-field>
       </div>
 
@@ -45,20 +43,13 @@
     </form>
   </div>
 
-  <div #loginRef style="margin-top: 25px;">
-
-    <button mat-button matstyle="padding: 1rem;">
-      <mat-icon style="width: 50px; height:30px; " svgIcon="logo"></mat-icon> Login With Google
-    </button>
-  </div>
-
   <ng-template #elseBlock>
     <form [formGroup]="addressForm" (ngSubmit)="addServiceProviderAddress()">
       <mat-card-title>Registration Form</mat-card-title>
       <div>
         <mat-form-field appearance="outline">
           <mat-label>Address Line</mat-label>
-          <input matInput placeholder="Address" formControlName="addressLine" />
+          <input matInput placeholder="Address" formControlName="houseAddress" />
           <mat-icon matSuffix>home</mat-icon>
           <mat-hint style="color: red">{{ errorMessage }}</mat-hint>
         </mat-form-field>

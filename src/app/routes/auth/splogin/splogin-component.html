@@ -12,21 +12,11 @@
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'text' : 'password'" />
-        <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{
-          hide ? "visibility" : "visibility_off"
-          }}</mat-icon>
+        <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
       </mat-form-field>
     </div>
 
     <button type="submit" mat-raised-button color="primary">Login</button>
     <mat-hint style="color: red">{{ errorMessage }}</mat-hint>
   </form>
-
-  <div #loginRef style="margin-top: 25px;">
-
-    <button mat-button matstyle="padding: 1rem;">
-      <mat-icon style="width: 50px; height:30px; " svgIcon="logo"></mat-icon> Login With Google
-    </button>
-  </div>
-
 </mat-card>

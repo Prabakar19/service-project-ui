@@ -2,12 +2,16 @@ import { createReducer, on, Action } from '@ngrx/store';
 import {
   addCustomerAddress,
   addCustomerAddressSucess,
+  addSPAddress,
+  addSPAddressSucess,
   custLogin,
   custLoginSucess,
   custRegister,
   custRegisterSucess,
   spLogin,
   spLoginSucess,
+  spRegister,
+  spRegisterSucess,
 } from './auth.actions';
 
 export const initialState = {
@@ -34,6 +38,16 @@ const _environmentReducer = createReducer(
   })),
   on(spLogin, (state, props) => state),
   on(spLoginSucess, (state, props) => ({
+    ...state,
+    serviceProvider: props.serviceProvider,
+  })),
+  on(spRegister, (state, props) => state),
+  on(spRegisterSucess, (state, props) => ({
+    ...state,
+    serviceProvider: props.serviceProvider,
+  })),
+  on(addSPAddress, (state, props) => state),
+  on(addSPAddressSucess, (state, props) => ({
     ...state,
     serviceProvider: props.serviceProvider,
   }))

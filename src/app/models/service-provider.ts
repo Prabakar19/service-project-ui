@@ -1,5 +1,6 @@
 import { Service } from './service';
 import { Billing } from './billing';
+import { Address } from './address';
 
 export interface ServiceProvider {
   serviceProviderId: number;
@@ -12,14 +13,6 @@ export interface ServiceProvider {
   serviceProviderPic: File;
   services: Service[];
   billings: Array<Billing>;
-  address: {
-    addressId: number;
-    addresLine: string;
-    area: string;
-    city: string;
-    state: string;
-    country: string;
-    pincode: number;
-  };
+  serviceAddress: Address;
   serviceAddressId: number;
 }

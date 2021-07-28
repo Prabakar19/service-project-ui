@@ -3,7 +3,7 @@ import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
-import { CustomerServices } from 'src/app/services/customerService/customer.service';
+import { CustomerServices } from 'src/app/services/customer-service/customer.service';
 import { HttpClient } from '@angular/common/http';
 import { Service } from 'src/app/models/service';
 import { ServiceService } from 'src/app/services/service-service/service.service';

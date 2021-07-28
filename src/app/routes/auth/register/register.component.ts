@@ -63,7 +63,6 @@ export class RegisterationComponent implements OnInit {
 
       this.store.dispatch(setLoading({ status: true }));
       this.store.dispatch(addCustomerAddress({ address, customerId: this.customer.customerId }));
-      this.customer$ = this.store.select(getCustomer);
 
       this.customer$.subscribe((res) => {
         this.customer = res;
