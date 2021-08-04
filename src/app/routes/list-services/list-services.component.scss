@@ -1,0 +1,28 @@
+:host {
+  app-search-bar {
+    width: 50%;
+  }
+  .inline {
+    display: inline-block;
+  }
+  mat-label {
+    font-size: 28px;
+  }
+
+  mat-divider {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  app-search-bar {
+    margin-left: 26%;
+  }
+
+  app-service-card {
+    cursor: pointer;
+  }
+
+  button {
+    margin-left: 10px;
+  }
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from '../../../state/state';
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   hide: boolean;
 
   customer$: Observable<Customer>;
+  private unsubscribe$ = new Subject<void>();
 
   loginForm = this.fb.group({
     emailId: ['', [Validators.email, Validators.required]],
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(custLogin({ emailId, password }));
       this.customer$ = this.store.select(getCustomer);
 
-      this.customer$.subscribe((res) => {
+      this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.customer = res;
         this.loginForm.reset;
         localStorage.setItem('isLoggedIn', 'true');

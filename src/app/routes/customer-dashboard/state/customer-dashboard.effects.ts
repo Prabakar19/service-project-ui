@@ -7,7 +7,7 @@ import { CategoryServiceService } from 'src/app/services/category-service/catego
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import * as DashBoardActions from './customer.dashboard.actions';
+import * as DashBoardActions from './customer-dashboard.actions';
 
 @Injectable()
 export class CustomerDashboardEffects {

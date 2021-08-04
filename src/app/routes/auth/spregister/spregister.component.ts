@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Address } from 'src/app/models/address';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
@@ -23,6 +24,7 @@ export class RegistrationSpComponent implements OnInit {
   toggle = false;
 
   serviceProvider$: Observable<ServiceProvider>;
+  private unsubscribe$ = new Subject<void>();
 
   registrationSpForm = this.fb.group({
     companyName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
@@ -52,7 +54,7 @@ export class RegistrationSpComponent implements OnInit {
       this.store.dispatch(spRegister({ serviceProvider: this.serviceProvider }));
       this.serviceProvider$ = this.store.select(getServiceProvider);
 
-      this.serviceProvider$.subscribe((res) => {
+      this.serviceProvider$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.serviceProvider = res;
         this.registrationSpForm.reset;
         this.toggle = true;
@@ -66,16 +68,12 @@ export class RegistrationSpComponent implements OnInit {
       this.store.dispatch(setLoading({ status: true }));
       this.store.dispatch(addSPAddress({ serviceAddress, spId: this.serviceProvider.serviceProviderId }));
 
-      this.serviceProvider$.subscribe((res) => {
+      this.serviceProvider$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.serviceProvider = res;
         this.addressForm.reset;
         localStorage.setItem('isLoggedInSP', 'true');
         localStorage.setItem('tokenSP', JSON.stringify(this.serviceProvider));
       });
-      //   this.serviceProviderService.addServiceProviderAddressReq(this.address, this.serviceProvider.serviceProviderId).subscribe((res) => {
-      //     this.serviceProvider = res;
-      //     this.addressForm.reset;
-      //   });
     }
   }
 }

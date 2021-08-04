@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
@@ -20,6 +21,7 @@ export class RegisterationComponent implements OnInit {
   toggle = false;
 
   customer$: Observable<Customer>;
+  private unsubscribe$ = new Subject<void>();
 
   registrationForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
@@ -49,7 +51,7 @@ export class RegisterationComponent implements OnInit {
       this.store.dispatch(custRegister({ customer: this.customer }));
       this.customer$ = this.store.select(getCustomer);
 
-      this.customer$.subscribe((res) => {
+      this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.customer = res;
         this.registrationForm.reset;
         this.toggle = true;
@@ -64,7 +66,7 @@ export class RegisterationComponent implements OnInit {
       this.store.dispatch(setLoading({ status: true }));
       this.store.dispatch(addCustomerAddress({ address, customerId: this.customer.customerId }));
 
-      this.customer$.subscribe((res) => {
+      this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.customer = res;
         this.addressForm.reset;
         localStorage.setItem('isLoggedIn', 'true');

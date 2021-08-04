@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Customer } from 'src/app/models/customer';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from '../../state/state';
 import { getCategory, getCities, getFilteredCategory } from './state/customer-dashboard.selectors';
-import { loadCategory, loadCities, loadSelectedCategory } from './state/customer.dashboard.actions';
+import { loadCategory, loadCities, loadSelectedCategory } from './state/customer-dashboard.actions';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -20,8 +21,6 @@ export class CustomerDashboardComponent implements OnInit {
   categoryNameList: string[];
   cities: string[];
   customer: Customer;
-
-  pageLoaded = false;
   title = 'City';
   localtionSelect = false;
   bestOffers = ['', '', ''];
@@ -29,6 +28,7 @@ export class CustomerDashboardComponent implements OnInit {
   categoryList$: Observable<Category[]>;
   cities$: Observable<string[]>;
   filteredCategory$: Observable<string[]>;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.categoryList$ = this.store.select(getCategory);
@@ -43,44 +43,30 @@ export class CustomerDashboardComponent implements OnInit {
 
   getAllCategories(): void {
     this.store.dispatch(loadCategory());
-    this.categoryList$.subscribe(
-      (res) => {
-        this.categoryNameList = res.map((cat) => cat.categoryName);
-        this.pageLoaded = true;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.categoryList$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.categoryNameList = res.map((cat) => cat.categoryName);
+    });
   }
 
   goListPage(cat: string): void {
-    if (!this.localtionSelect) {
+    if (!this.selectedLocation) {
       this.errorMessage = 'please select the location!!';
     } else {
       sessionStorage.setItem('category', JSON.stringify(cat));
       sessionStorage.setItem('location', JSON.stringify(this.selectedLocation));
-      this.router.navigateByUrl('/customerServices');
+      this.router.navigateByUrl('/cust-services');
     }
   }
 
   selectEventHandler(selected): void {
-    this.localtionSelect = true;
     this.errorMessage = '';
     this.selectedLocation = selected;
-    this.pageLoaded = false;
     this.store.dispatch(setLoading({ status: true }));
     this.store.dispatch(loadSelectedCategory({ cityName: selected }));
     this.filteredCategory$ = this.store.select(getFilteredCategory);
 
-    this.filteredCategory$.subscribe(
-      (res) => {
-        this.categoryNameList = res;
-        this.pageLoaded = true;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.filteredCategory$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.categoryNameList = res;
+    });
   }
 }

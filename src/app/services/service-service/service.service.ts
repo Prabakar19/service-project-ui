@@ -6,33 +6,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceService {
-  serviceIdUrl = 'api/service/id/';
-  addServiceUrl = 'api/service/';
-  modifyServiceUrl = 'api/service/id/';
-  deleteServiceUrl = 'api/service/id/';
+  root = 'api/service';
 
   constructor(private http: HttpClient) {}
   getServiceByIdRequest(id: number): Observable<any> {
-    return this.http.get<any>(this.serviceIdUrl + id);
+    return this.http.get<any>(this.root + '/id/' + id);
   }
 
   addServiceRequest(data: any): Observable<any> {
-    return this.http.post<any>(this.addServiceUrl, data);
+    return this.http.post<any>(this.root, data);
   }
 
   modifyServiceRequest(data: any, id: number): Observable<any> {
-    return this.http.put<any>(this.modifyServiceUrl + id, data);
+    return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
   deleteServiceRequest(data: any, id: number): Observable<any> {
-    return this.http.delete<any>(this.deleteServiceUrl + id, data);
+    return this.http.delete<any>(this.root + '/id/' + id, data);
   }
 
   updateServiceRequest(data: any, id: number): Observable<any> {
-    return this.http.put<any>(this.serviceIdUrl + id, data);
+    return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
   getServiceList(id: number, name: string): Observable<any> {
-    return this.http.get<any>(this.addServiceUrl + id + '/' + name);
+    return this.http.get<any>(this.root + '/' + id + '/' + name);
   }
 }

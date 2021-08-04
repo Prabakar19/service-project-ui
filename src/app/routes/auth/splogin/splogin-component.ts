@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
@@ -19,6 +20,7 @@ export class SPLoginComponent implements OnInit {
   hide: boolean;
 
   serviceProvider$: Observable<ServiceProvider>;
+  private unsubscribe$ = new Subject<void>();
 
   loginForm = this.fb.group({
     emailId: ['', [Validators.email, Validators.required]],
@@ -38,7 +40,7 @@ export class SPLoginComponent implements OnInit {
       this.store.dispatch(spLogin({ emailId, password }));
       this.serviceProvider$ = this.store.select(getServiceProvider);
 
-      this.serviceProvider$.subscribe((res) => {
+      this.serviceProvider$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.serviceProvider = res;
         this.loginForm.reset;
         localStorage.setItem('isLoggedInSP', 'true');

@@ -36,7 +36,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   setValueForParent(data): void {
-    console.log(data);
     this.selectedData.emit(data);
   }
 }

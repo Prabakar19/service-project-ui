@@ -1,33 +1,26 @@
 <app-nav-bar [userType]="'customer'"></app-nav-bar>
 <app-search-bar
-  *ngIf="categoryNameList"
-  [listData]="categoryNameList"
+  *ngIf="(filteredCategory$ | async)?.length > 0"
+  [listData]="filteredCategory$ | async"
   (selectedData)="selectedDataHandler($event)"
   class="inline"
 ></app-search-bar>
 
-<app-loader *ngIf="!pageLoaded"></app-loader>
 <div class="services">
   <mat-label>Services</mat-label>
   <div>
     <h3>Sort By:</h3>
-    <button mat-raised-button (click)="sortBy('rating')">
-      Rating<mat-icon>unfold_more</mat-icon>
-    </button>
-    <button mat-raised-button (click)="sortBy('cost')">
-      Price<mat-icon>unfold_more</mat-icon>
-    </button>
+    <button mat-raised-button (click)="sortBy('rating')">Rating<mat-icon>unfold_more</mat-icon></button>
+    <button mat-raised-button (click)="sortBy('cost')">Price<mat-icon>unfold_more</mat-icon></button>
   </div>
   <div>
     <h3>Filter By:</h3>
     <button mat-raised-button (click)="filterUnder(500)">Less than 500</button>
-    <button mat-raised-button (click)="filterUnder(1000)">
-      Less than 1000
-    </button>
+    <button mat-raised-button (click)="filterUnder(1000)">Less than 1000</button>
     <button mat-raised-button (click)="filterAbove(1000)">1000+</button>
   </div>
 
-  <table>
+  <table *ngIf="filteredList?.length > 0">
     <tr
       *ngFor="
         let service of filteredList
@@ -36,29 +29,20 @@
                 id: 'service_pagination',
                 itemsPerPage: 5,
                 currentPage: page,
-                totalItems: totalRecords
+                totalItems: filteredList.length
               }
           | orderBy: key:reverse
       "
     >
       <td>
         <mat-divider></mat-divider>
-        <app-service-card
-          class="inline"
-          [service]="service"
-          (click)="gotoCheckout(service)"
-        ></app-service-card>
+        <app-service-card class="inline" [service]="service" (click)="gotoCheckout(service)"></app-service-card>
       </td>
     </tr>
   </table>
 
   <div class="mat-elevation-z8">
-    <pagination-controls
-      id="service_pagination"
-      maxSize="5"
-      directionLinks="true"
-      (pageChange)="page = $event"
-    ></pagination-controls>
+    <pagination-controls id="service_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>
 

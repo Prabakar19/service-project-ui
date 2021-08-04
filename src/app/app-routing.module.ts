@@ -5,7 +5,7 @@ import { CheckoutPageComponent } from './routes/checkout-page/checkout-page.comp
 import { CustomerDashboardComponent } from './routes/customer-dashboard/customer-dashboard.component';
 import { CustomerProfileComponent } from './routes/customer-profile/customer-profile.component';
 import { HomePageComponent } from './routes/home-page/home-page.component';
-import { ListServicesPageComponent } from './routes/list-services-page/list-services-page.component';
+import { ListServicesComponent } from './routes/list-services/list-services.component';
 import { LoginComponent } from './routes/auth/login/login.component';
 import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
 import { RegistrationSpComponent } from './routes/auth/spregister/spregister.component';
@@ -58,8 +58,8 @@ const routes: Routes = [
     canActivate: [AuthguardspGuard],
   },
   {
-    path: 'customerServices',
-    component: ListServicesPageComponent,
+    path: 'cust-services',
+    component: ListServicesComponent,
     canActivate: [AuthGuard],
   },
   {

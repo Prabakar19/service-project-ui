@@ -18,7 +18,7 @@ import { ImageCardComponent } from './components/image-card/image-card.component
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { SelectComponent } from './components/select/select.component';
 import { AuthGuard } from './Guards/auth.guard';
-import { ListServicesPageComponent } from './routes/list-services-page/list-services-page.component';
+import { ListServicesComponent } from './routes/list-services/list-services.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -53,9 +53,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { appReducer } from './state/state';
 import { EffectsModule } from '@ngrx/effects';
-import { CustomerDashboardEffects } from './routes/customer-dashboard/state/customer.dashboard.effects';
+import { CustomerDashboardEffects } from './routes/customer-dashboard/state/customer-dashboard.effects';
 import { AuthEffects } from './routes/auth/state/auth.effects';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { ListServiceEffects } from './routes/list-services/state/list-services.effects';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ImageCardComponent,
     SearchBarComponent,
     SelectComponent,
-    ListServicesPageComponent,
+    ListServicesComponent,
     ServiceCardComponent,
     RatingComponent,
     LoaderComponent,
@@ -109,7 +110,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     NgxPaginationModule,
     Ng2OrderModule,
     TooltipModule.forRoot(),
-    EffectsModule.forRoot([CustomerDashboardEffects, AuthEffects]),
+    EffectsModule.forRoot([CustomerDashboardEffects, AuthEffects, ListServiceEffects]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

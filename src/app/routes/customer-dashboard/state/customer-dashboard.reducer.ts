@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import * as DashboardActions from './customer.dashboard.actions';
+import * as DashboardActions from './customer-dashboard.actions';
 
 export const initialState = {
   category: [],
