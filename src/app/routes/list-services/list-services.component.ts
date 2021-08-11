@@ -84,8 +84,6 @@ export class ListServicesComponent implements OnInit {
     sessionStorage.setItem('category', JSON.stringify(cat));
 
     this.getServiceList();
-    // this.getCategoryList();
-    // window.location.reload();
   }
 
   sortBy(key) {
@@ -102,6 +100,6 @@ export class ListServicesComponent implements OnInit {
 
   gotoCheckout(service: Service) {
     sessionStorage.setItem('service', JSON.stringify(service));
-    this.router.navigateByUrl('/checkout');
+    this.router.navigateByUrl('/service');
   }
 }

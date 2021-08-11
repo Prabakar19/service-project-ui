@@ -24,8 +24,8 @@ import { RatingComponent } from './components/rating/rating.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { LoaderComponent } from './components/loader/loader.component';
-import { CheckoutPageComponent } from './routes/checkout-page/checkout-page.component';
-import { CartPageComponent } from './routes/cart-page/cart-page.component';
+import { ServiceComponent } from './routes/list-services/service-view/service.component';
+import { CartPageComponent } from './routes/cart/cart.component';
 import { DetailCardComponent } from './components/detail-card/detail-card.component';
 import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
@@ -76,7 +76,7 @@ import { ListServiceEffects } from './routes/list-services/state/list-services.e
     ServiceCardComponent,
     RatingComponent,
     LoaderComponent,
-    CheckoutPageComponent,
+    ServiceComponent,
     CartPageComponent,
     DetailCardComponent,
     MyBookingPageComponent,

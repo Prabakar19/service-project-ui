@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CartPageComponent } from './routes/cart-page/cart-page.component';
-import { CheckoutPageComponent } from './routes/checkout-page/checkout-page.component';
+import { CartPageComponent } from './routes/cart/cart.component';
+import { ServiceComponent } from './routes/list-services/service-view/service.component';
 import { CustomerDashboardComponent } from './routes/customer-dashboard/customer-dashboard.component';
 import { CustomerProfileComponent } from './routes/customer-profile/customer-profile.component';
 import { HomePageComponent } from './routes/home-page/home-page.component';
@@ -13,7 +13,6 @@ import { RegisterationComponent } from './routes/auth/register/register.componen
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
 import { AuthGuard } from './Guards/auth.guard';
-import { from } from 'rxjs';
 import { ServiceProviderDashboardComponent } from './routes/service-provider-dashboard/service-provider-dashboard.component';
 import { AddServiceComponent } from './routes/add-service/add-service.component';
 import { ModifyServiceComponent } from './routes/modify-service/modify-service.component';
@@ -63,8 +62,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'checkout',
-    component: CheckoutPageComponent,
+    path: 'service',
+    component: ServiceComponent,
     canActivate: [AuthGuard],
   },
   {

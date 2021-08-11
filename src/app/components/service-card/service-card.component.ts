@@ -1,29 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Service } from 'src/app/models/service';
 import { ServiceProvider } from 'src/app/models/service-provider';
-import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 
 @Component({
   selector: 'app-service-card',
   templateUrl: './service-card.component.html',
-  styleUrls: ['./service-card.component.css'],
+  styleUrls: ['./service-card.component.scss'],
 })
 export class ServiceCardComponent implements OnInit {
-  @Input('service')
-  service: Service;
-  @Input('description')
-  description: string;
-  @Input('button')
-  button: boolean;
+  @Input() service: Service;
+  @Input() description: string;
+  @Input() button: boolean;
+  @Output() clickEvent = new EventEmitter();
 
-  @Output() clickEvent = new EventEmitter<string>();
-
-  cartAddedVisible: boolean = false;
+  cartAddedVisible = false;
   serviceProvider: ServiceProvider;
   retrievedImage: any;
-
   calculatedCost: number;
-  constructor(private serviceProviderService: ServiceProviderService) {}
 
   ngOnInit(): void {
     this.retrievedImage = 'data:image/jpeg;base64,' + this.service.servicePic;
@@ -35,6 +28,6 @@ export class ServiceCardComponent implements OnInit {
 
   callParent(): void {
     this.cartAddedVisible = true;
-    this.clickEvent.next('someEvent');
+    this.clickEvent.emit();
   }
 }

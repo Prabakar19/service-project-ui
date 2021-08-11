@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Billing } from 'src/app/models/billing';
 import { Customer } from 'src/app/models/customer';
 import { Service } from 'src/app/models/service';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { Transaction } from 'src/app/models/transaction';
 import { BillingService } from 'src/app/services/billing-service/billing.service';
-import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
+import { AppState } from 'src/app/state/state';
+import { setCartList } from './state/cart.actions';
+import { getCartList } from './state/cart.selectors';
 
 @Component({
-  selector: 'app-cart-page',
-  templateUrl: './cart-page.component.html',
-  styleUrls: ['./cart-page.component.scss'],
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartPageComponent implements OnInit {
   pageLoaded: boolean = false;
@@ -22,10 +27,12 @@ export class CartPageComponent implements OnInit {
   customer: Customer;
   transaction: Partial<Transaction> = {};
 
-  constructor(
-    private billingService: BillingService,
-    private serviceProviderService: ServiceProviderService
-  ) {}
+  cartList$: Observable<Service[]>;
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private billingService: BillingService, private store: Store<AppState>) {
+    this.cartList$ = this.store.select(getCartList);
+  }
 
   ngOnInit(): void {
     this.getCartList();
@@ -33,18 +40,23 @@ export class CartPageComponent implements OnInit {
   }
 
   getCartList() {
-    this.cartList = JSON.parse(localStorage.getItem('cart'));
-    console.log(this.cartList);
+    const cartList = JSON.parse(localStorage.getItem('cart'));
+    this.store.dispatch(setCartList({ cartList }));
+    this.cartList$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.cartList = res;
+    });
 
     let intermediate = new Set();
-    this.cartList.forEach((obj) => {
-      intermediate.add(obj.serviceProviderId);
+
+    this.cartList.map((service) => {
+      intermediate.add(service.serviceProviderId);
     });
+
     let output = [];
     intermediate.forEach((spId) => {
       let same = [];
-      this.cartList.forEach((cart) => {
-        if (cart.serviceProviderId === spId) same.push(cart);
+      this.cartList.map((service) => {
+        if (service.serviceProviderId === spId) same.push(service);
       });
       output.push(same);
     });
@@ -54,13 +66,10 @@ export class CartPageComponent implements OnInit {
 
   getService(serviceList) {
     this.serviceList = serviceList;
-    // console.log(this.serviceList);
   }
 
   clickEventHandler(cart) {
-    this.cartList = this.cartList.filter(
-      (cat) => cat.serviceId !== cart.serviceId
-    );
+    this.cartList = this.cartList.filter((cat) => cat.serviceId !== cart.serviceId);
     localStorage.setItem('cart', JSON.stringify(this.cartList));
   }
 
@@ -82,11 +91,7 @@ export class CartPageComponent implements OnInit {
         this.billing = res;
         console.log(this.billing);
         serviceList.map((service) => {
-          this.addTransaction(
-            service.serviceId,
-            billing.customerId,
-            this.billing.billingId
-          );
+          this.addTransaction(service.serviceId, billing.customerId, this.billing.billingId);
 
           this.deleteCheckedOutHandler(serviceList);
           this.pageLoaded = true;

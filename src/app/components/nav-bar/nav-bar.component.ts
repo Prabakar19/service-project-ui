@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NavBarComponent implements OnInit {
   @Input() userType: string;
+  // @Input() badge:number;
 
   cartList: Service[];
   badge: number;
@@ -21,7 +22,9 @@ export class NavBarComponent implements OnInit {
 
   getBadge() {
     this.cartList = JSON.parse(localStorage.getItem('cart'));
-    if (this.cartList) this.badge = this.cartList.length;
+    if (this.cartList) {
+      this.badge = this.cartList.length;
+    }
   }
 
   titleClick() {

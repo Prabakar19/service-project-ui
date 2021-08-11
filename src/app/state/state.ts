@@ -6,16 +6,24 @@ import { environmentReducer } from '../routes/auth/state/auth.reducer';
 import { sharedReducer } from './shared/shared.reducer';
 import { Service } from '../models/service';
 import { listServiceReducer } from '../routes/list-services/state/list-services.reducer';
+import { cartReducer } from '../routes/cart/state/cart.reducer';
 
 export interface DashboardState {
   category: Category[];
   filteredCategoryNames: string[];
   cities: string[];
 }
+
 export interface ListServices {
   selectedCategory: Category;
   serviceList: Service[];
+  serviceProvider: ServiceProvider;
+  service: Service;
 }
+export interface CartView {
+  cartList: Service[];
+}
+
 export interface EnvironmentState {
   customer: Customer;
   serviceProvider: ServiceProvider;
@@ -29,6 +37,7 @@ export interface SharedState {
 export interface AppState {
   dashboard: DashboardState;
   listServices: ListServices;
+  cart: CartView;
   environment: EnvironmentState;
   shared: SharedState;
 }
@@ -36,6 +45,7 @@ export interface AppState {
 export const appReducer = {
   dashboard: dashBoardReducer,
   listServices: listServiceReducer,
+  cart: cartReducer,
   environment: environmentReducer,
   shared: sharedReducer,
 };

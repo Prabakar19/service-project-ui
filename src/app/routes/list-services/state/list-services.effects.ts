@@ -4,10 +4,18 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { ServiceService } from 'src/app/services/service-service/service.service';
 import { setErrorMessage, setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { getCategory, getCategorySuccess, loadServices, loadServicesSuccess } from './list-services.actions';
+import {
+  getCategory,
+  getCategorySuccess,
+  loadServices,
+  loadServicesSuccess,
+  loadServicesProvider,
+  loadServicesProviderSuccess,
+} from './list-services.actions';
 
 @Injectable()
 export class ListServiceEffects {
@@ -15,6 +23,7 @@ export class ListServiceEffects {
     private actions$: Actions,
     private categoryService: CategoryServiceService,
     private service: ServiceService,
+    private serviceProvider: ServiceProviderService,
     private store: Store<AppState>
   ) {}
 
@@ -45,6 +54,25 @@ export class ListServiceEffects {
           map((listServices) => {
             this.store.dispatch(setLoading({ status: false }));
             return loadServicesSuccess({ listServices });
+          }),
+          catchError((error) => {
+            const errorMsg = error.error;
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        )
+      )
+    )
+  );
+
+  getServiceProvider$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadServicesProvider),
+      mergeMap((action) =>
+        this.serviceProvider.getServiceProviderRequest(action.spId).pipe(
+          map((serviceProvider) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return loadServicesProviderSuccess({ serviceProvider });
           }),
           catchError((error) => {
             const errorMsg = error.error;
