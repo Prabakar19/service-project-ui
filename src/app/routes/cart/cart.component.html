@@ -18,7 +18,7 @@
                   [discountedCost]="cart.discountedCost"
                   [description]="cart.details"
                   [warranty]="cart.waranty"
-                  (clickEvent)="clickEventHandler(cart)"
+                  (clickEvent)="removeItem(cart)"
                   class="app-card"
                 ></app-card>
               </td>
@@ -28,12 +28,7 @@
       </tr>
     </table>
     <div *ngIf="serviceList">
-      <app-detail-card
-        [details]="serviceList"
-        [tax]="6"
-        (clickEvent)="checkOutHandler(serviceList)"
-      >
-      </app-detail-card>
+      <app-bill-card [details]="serviceList" [tax]="6" (clickEvent)="checkOutHandler(serviceList)"> </app-bill-card>
     </div>
   </ng-template>
 </div>

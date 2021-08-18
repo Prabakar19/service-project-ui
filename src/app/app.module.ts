@@ -26,7 +26,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ServiceComponent } from './routes/list-services/service-view/service.component';
 import { CartPageComponent } from './routes/cart/cart.component';
-import { DetailCardComponent } from './components/detail-card/detail-card.component';
+import { BillCardComponent } from './routes/cart/bill-card/bill-card.component';
 import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
@@ -57,6 +57,7 @@ import { CustomerDashboardEffects } from './routes/customer-dashboard/state/cust
 import { AuthEffects } from './routes/auth/state/auth.effects';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ListServiceEffects } from './routes/list-services/state/list-services.effects';
+import { CartEffects } from './routes/cart/state/cart.effects';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { ListServiceEffects } from './routes/list-services/state/list-services.e
     LoaderComponent,
     ServiceComponent,
     CartPageComponent,
-    DetailCardComponent,
+    BillCardComponent,
     MyBookingPageComponent,
     ToggleButtonComponent,
     RegistrationSpComponent,
@@ -110,7 +111,7 @@ import { ListServiceEffects } from './routes/list-services/state/list-services.e
     NgxPaginationModule,
     Ng2OrderModule,
     TooltipModule.forRoot(),
-    EffectsModule.forRoot([CustomerDashboardEffects, AuthEffects, ListServiceEffects]),
+    EffectsModule.forRoot([CustomerDashboardEffects, AuthEffects, ListServiceEffects, CartEffects]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

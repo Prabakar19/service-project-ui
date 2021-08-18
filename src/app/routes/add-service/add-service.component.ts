@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Service } from 'src/app/models/service';
 import { ServiceService } from 'src/app/services/service-service/service.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { CategoryService } from 'src/app/services/category-service/category-service.service';
 import { Category } from 'src/app/models/category';
 import { ServiceProvider } from 'src/app/models/service-provider';
 
@@ -47,7 +47,7 @@ export class AddServiceComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     private router: Router,
-    private categoryService: CategoryServiceService
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {

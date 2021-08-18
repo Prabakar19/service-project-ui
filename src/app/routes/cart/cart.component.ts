@@ -7,10 +7,10 @@ import { Customer } from 'src/app/models/customer';
 import { Service } from 'src/app/models/service';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { Transaction } from 'src/app/models/transaction';
-import { BillingService } from 'src/app/services/billing-service/billing.service';
+import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { setCartList } from './state/cart.actions';
-import { getCartList } from './state/cart.selectors';
+import { addBilling, addTransaction, setCartList } from './state/cart.actions';
+import { getBilling, getCartList } from './state/cart.selectors';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +18,7 @@ import { getCartList } from './state/cart.selectors';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartPageComponent implements OnInit {
-  pageLoaded: boolean = false;
+  pageLoaded: boolean = true;
   cartList: Service[];
   serviceProviderList;
   serviceProvider: ServiceProvider;
@@ -28,54 +28,56 @@ export class CartPageComponent implements OnInit {
   transaction: Partial<Transaction> = {};
 
   cartList$: Observable<Service[]>;
+  billing$: Observable<Billing>;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private billingService: BillingService, private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
     this.cartList$ = this.store.select(getCartList);
+    this.billing$ = this.store.select(getBilling);
   }
 
   ngOnInit(): void {
+    this.store.dispatch(setLoading({ status: true }));
     this.getCartList();
-    this.pageLoaded = true;
   }
 
   getCartList() {
     const cartList = JSON.parse(localStorage.getItem('cart'));
+    let spIds = new Set();
+    let allServices = [];
+
     this.store.dispatch(setCartList({ cartList }));
     this.cartList$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.cartList = res;
     });
 
-    let intermediate = new Set();
-
-    this.cartList.map((service) => {
-      intermediate.add(service.serviceProviderId);
-    });
-
-    let output = [];
-    intermediate.forEach((spId) => {
-      let same = [];
+    this.cartList.map((service) => spIds.add(service.serviceProviderId));
+    spIds.forEach((spId) => {
+      let sameSPServices = [];
       this.cartList.map((service) => {
-        if (service.serviceProviderId === spId) same.push(service);
+        if (service.serviceProviderId === spId) sameSPServices.push(service);
       });
-      output.push(same);
+      allServices.push(sameSPServices);
     });
-
-    this.serviceProviderList = output;
+    this.serviceProviderList = allServices;
+    this.store.dispatch(setLoading({ status: false }));
   }
 
   getService(serviceList) {
     this.serviceList = serviceList;
   }
 
-  clickEventHandler(cart) {
-    this.cartList = this.cartList.filter((cat) => cat.serviceId !== cart.serviceId);
-    localStorage.setItem('cart', JSON.stringify(this.cartList));
+  removeItem(item) {
+    const cartList = this.cartList.filter((cat) => cat.serviceId !== item.serviceId);
+    this.store.dispatch(setCartList({ cartList }));
+    localStorage.setItem('cart', JSON.stringify(cartList));
   }
 
   checkOutHandler(serviceList) {
-    this.pageLoaded = false;
+    this.store.dispatch(setLoading({ status: true }));
+
     this.customer = JSON.parse(localStorage.getItem('token'));
+    //TODO - get customer from state rather than localstorage
 
     this.billing.totalCost = 0;
     this.billing.customerId = this.customer.customerId;
@@ -86,21 +88,17 @@ export class CartPageComponent implements OnInit {
   }
 
   addBilling(billing, serviceList) {
-    this.billingService.addBillingRequest(billing).subscribe(
-      (res) => {
-        this.billing = res;
-        console.log(this.billing);
+    this.store.dispatch(addBilling(billing));
+    this.billing$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.billing = res;
+      if (this.billing) {
         serviceList.map((service) => {
           this.addTransaction(service.serviceId, billing.customerId, this.billing.billingId);
-
           this.deleteCheckedOutHandler(serviceList);
-          this.pageLoaded = true;
+          //TODO - cut out these function call and make it possible here
         });
-      },
-      (err) => {
-        console.log(err);
       }
-    );
+    });
   }
 
   addTransaction(serviceId, custId, billId) {
@@ -108,36 +106,12 @@ export class CartPageComponent implements OnInit {
     this.transaction.billingId = billId;
     this.transaction.customerId = custId;
     this.transaction.status = 'ongoing';
-    console.log(billId);
-    this.billingService.addTransactionRequest(this.transaction).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.store.dispatch(addTransaction({ transaction: this.transaction }));
   }
 
   deleteCheckedOutHandler(serviceList) {
     serviceList.map((service) => {
-      this.clickEventHandler(service);
+      this.removeItem(service);
     });
   }
-
-  // getServiceProviderName(serviceList) {
-  //   this.pageLoaded = false;
-  //   this.serviceProviderService
-  //     .getServiceProviderRequest(serviceList[0].serviceProviderId)
-  //     .subscribe(
-  //       (res) => {
-  //         this.serviceProvider = res;
-  //         this.pageLoaded = true;
-  //         return this.serviceProvider.companyName;
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  // }
 }

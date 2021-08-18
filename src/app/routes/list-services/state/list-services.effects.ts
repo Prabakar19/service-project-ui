@@ -3,7 +3,7 @@ import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { CategoryService } from 'src/app/services/category-service/category-service.service';
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { ServiceService } from 'src/app/services/service-service/service.service';
 import { setErrorMessage, setLoading } from 'src/app/state/shared/shared.actions';
@@ -21,7 +21,7 @@ import {
 export class ListServiceEffects {
   constructor(
     private actions$: Actions,
-    private categoryService: CategoryServiceService,
+    private categoryService: CategoryService,
     private service: ServiceService,
     private serviceProvider: ServiceProviderService,
     private store: Store<AppState>

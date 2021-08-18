@@ -7,6 +7,7 @@ import { sharedReducer } from './shared/shared.reducer';
 import { Service } from '../models/service';
 import { listServiceReducer } from '../routes/list-services/state/list-services.reducer';
 import { cartReducer } from '../routes/cart/state/cart.reducer';
+import { Billing } from '../models/billing';
 
 export interface DashboardState {
   category: Category[];
@@ -22,6 +23,7 @@ export interface ListServices {
 }
 export interface CartView {
   cartList: Service[];
+  billing: Billing;
 }
 
 export interface EnvironmentState {

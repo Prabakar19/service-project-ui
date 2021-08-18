@@ -5,26 +5,23 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryServiceService {
-  getCategoryListUrl = 'api/category/all';
-  getCategoryNameListUrl = 'api/category/allname';
-  getCategoriesbyCityUrl = 'api/category/categorybycity/';
-  categoryNameUrl = 'api/category/get/name/';
+export class CategoryService {
+  root = 'api/category';
 
   constructor(private http: HttpClient) {}
 
   getCategoryListRequest(): Observable<any> {
-    return this.http.get<any>(this.getCategoryListUrl);
+    return this.http.get<any>(this.root + '/all');
   }
   getCategoryNameListRequest(): Observable<any> {
-    return this.http.get<any>(this.getCategoryNameListUrl);
+    return this.http.get<any>(this.root + '/allname');
   }
 
   getCategoriesByCity(name): Observable<any> {
-    return this.http.get<any>(this.getCategoriesbyCityUrl + name);
+    return this.http.get<any>(this.root + '/categorybycity/' + name);
   }
 
   getCategoryByNameRequest(categoryName: string): Observable<any> {
-    return this.http.get<any>(this.categoryNameUrl + categoryName);
+    return this.http.get<any>(this.root + '/get/name/' + categoryName);
   }
 }

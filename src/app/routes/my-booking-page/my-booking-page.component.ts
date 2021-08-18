@@ -4,7 +4,7 @@ import { Customer } from 'src/app/models/customer';
 import { Service } from 'src/app/models/service';
 import { Transaction, TransDetails } from 'src/app/models/transaction';
 import { BillingService } from 'src/app/services/billing-service/billing.service';
-import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { CategoryService } from 'src/app/services/category-service/category-service.service';
 import { DownloadServiceService } from 'src/app/services/download-service.service';
 import { ServiceService } from 'src/app/services/service-service/service.service';
 
@@ -48,7 +48,7 @@ export class MyBookingPageComponent implements OnInit {
     private billingService: BillingService,
     private serviceService: ServiceService,
     private downloadService: DownloadServiceService,
-    private categoryService: CategoryServiceService
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -62,9 +62,7 @@ export class MyBookingPageComponent implements OnInit {
     this.categoryService.getCategoryListRequest().subscribe(
       (res) => {
         this.categoryList = res;
-        this.categoryNameList = this.categoryList.map(
-          (cat) => cat.categoryName
-        );
+        this.categoryNameList = this.categoryList.map((cat) => cat.categoryName);
       },
       (err) => {
         console.log(err);
@@ -115,17 +113,15 @@ export class MyBookingPageComponent implements OnInit {
   updateRating(rate: number, transaction: Transaction) {
     this.pageLoaded = false;
     transaction.transactionRating = rate;
-    this.billingService
-      .updateTransactionRequest(transaction, transaction.transactionId)
-      .subscribe(
-        (res) => {
-          console.log(res);
-          this.pageLoaded = true;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    this.billingService.updateTransactionRequest(transaction, transaction.transactionId).subscribe(
+      (res) => {
+        console.log(res);
+        this.pageLoaded = true;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   //filtered by category
@@ -150,10 +146,6 @@ export class MyBookingPageComponent implements OnInit {
   }
 
   downloadReport() {
-    this.downloadService.downloadFile(
-      this.completedList,
-      'My bookings',
-      this.transactionHeader
-    );
+    this.downloadService.downloadFile(this.completedList, 'My bookings', this.transactionHeader);
   }
 }

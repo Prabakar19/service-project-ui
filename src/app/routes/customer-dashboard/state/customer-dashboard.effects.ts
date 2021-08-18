@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { CategoryService } from 'src/app/services/category-service/category-service.service';
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
@@ -13,7 +13,7 @@ import * as DashBoardActions from './customer-dashboard.actions';
 export class CustomerDashboardEffects {
   constructor(
     private actions$: Actions,
-    private categoryService: CategoryServiceService,
+    private categoryService: CategoryService,
     private serviceProviderService: ServiceProviderService,
     private store: Store<AppState>
   ) {}

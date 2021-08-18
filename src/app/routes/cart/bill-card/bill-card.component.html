@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Check Out</mat-card-title>
+  <mat-card-content>
+    <div class="col">
+      <div class="row my-10" *ngFor="let detail of details">
+        <div class="col-8">{{ detail.serviceName }}</div>
+        <div class="col-4">₹ {{ detail.discountedCost }}</div>
+      </div>
+      <div class="row" *ngIf="tax">
+        <div class="col-8">Tax</div>
+        <div class="col-4">{{ tax }}%</div>
+      </div>
+      <div class="row">
+        <div class="col-8"><h2>Total</h2></div>
+        <div class="col-4">
+          <h2>{{ calculateTotal() | currency: 'INR' }}</h2>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions> <button mat-button (click)="callParent()">CHECKOUT</button></mat-card-actions>
+</mat-card>

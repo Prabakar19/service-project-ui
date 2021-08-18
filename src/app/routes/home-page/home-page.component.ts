@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
-import { CategoryServiceService } from 'src/app/services/category-service/category-service.service';
+import { CategoryService } from 'src/app/services/category-service/category-service.service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,10 +13,7 @@ export class HomePageComponent implements OnInit {
   categoryList: Category[];
   categoryNameList: string[];
 
-  constructor(
-    private categoryService: CategoryServiceService,
-    private router: Router
-  ) {}
+  constructor(private categoryService: CategoryService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -26,9 +23,7 @@ export class HomePageComponent implements OnInit {
     this.categoryService.getCategoryListRequest().subscribe(
       (res) => {
         this.categoryList = res;
-        this.categoryNameList = this.categoryList.map(
-          (cat) => cat.categoryName
-        );
+        this.categoryNameList = this.categoryList.map((cat) => cat.categoryName);
         this.pageLoaded = true;
       },
       (err) => {
