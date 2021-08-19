@@ -8,6 +8,13 @@ import { Service } from '../models/service';
 import { listServiceReducer } from '../routes/list-services/state/list-services.reducer';
 import { cartReducer } from '../routes/cart/state/cart.reducer';
 import { Billing } from '../models/billing';
+import { Transaction } from '../models/transaction';
+import { bookingReducer } from '../routes/booking/state/booking.reducer';
+import { BookingEffects } from '../routes/booking/state/booking.effects';
+import { CartEffects } from '../routes/cart/state/cart.effects';
+import { ListServiceEffects } from '../routes/list-services/state/list-services.effects';
+import { AuthEffects } from '../routes/auth/state/auth.effects';
+import { CustomerDashboardEffects } from '../routes/customer-dashboard/state/customer-dashboard.effects';
 
 export interface DashboardState {
   category: Category[];
@@ -25,6 +32,10 @@ export interface CartView {
   cartList: Service[];
   billing: Billing;
 }
+export interface Booking {
+  transactions: Transaction[];
+  categoryList: Category[];
+}
 
 export interface EnvironmentState {
   customer: Customer;
@@ -40,6 +51,7 @@ export interface AppState {
   dashboard: DashboardState;
   listServices: ListServices;
   cart: CartView;
+  booking: Booking;
   environment: EnvironmentState;
   shared: SharedState;
 }
@@ -48,6 +60,9 @@ export const appReducer = {
   dashboard: dashBoardReducer,
   listServices: listServiceReducer,
   cart: cartReducer,
+  booking: bookingReducer,
   environment: environmentReducer,
   shared: sharedReducer,
 };
+
+export const appEffects = [CustomerDashboardEffects, AuthEffects, ListServiceEffects, CartEffects, BookingEffects];

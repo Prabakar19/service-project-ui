@@ -7,7 +7,7 @@ import { CustomerProfileComponent } from './routes/customer-profile/customer-pro
 import { HomePageComponent } from './routes/home-page/home-page.component';
 import { ListServicesComponent } from './routes/list-services/list-services.component';
 import { LoginComponent } from './routes/auth/login/login.component';
-import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
+import { BookingComponent } from './routes/booking/booking.component';
 import { RegistrationSpComponent } from './routes/auth/spregister/spregister.component';
 import { RegisterationComponent } from './routes/auth/register/register.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
@@ -73,7 +73,7 @@ const routes: Routes = [
   },
   {
     path: 'mybooking',
-    component: MyBookingPageComponent,
+    component: BookingComponent,
     canActivate: [AuthGuard],
   },
   {

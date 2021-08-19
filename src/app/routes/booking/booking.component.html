@@ -1,0 +1,105 @@
+<app-nav-bar [userType]="'customer'"></app-nav-bar>
+
+<div class="header">My Booking</div>
+<div class="header-button">
+  <app-toggle-button [list]="toggleList" (selectedValue)="selectedValueHandler($event)"></app-toggle-button>
+</div>
+
+<div class="content">
+  <button mat-raised-button (click)="sortBy('date')">Sort by Date</button>
+
+  <button mat-raised-button *ngIf="!visibleTxn" class="report-btn" (click)="downloadReport()">Download Report</button>
+  <ng-container *ngIf="visibleTxn; else elseCompleted">
+    <div *ngIf="!currentList; else emptyElse">
+      <app-empty-card></app-empty-card>
+    </div>
+    <ng-template #emptyElse>
+      <mat-list *ngFor="let txn of currentList | orderBy: key:reverse">
+        <mat-divider></mat-divider>
+        <mat-list-item class="list-item">
+          <table>
+            <tr>
+              <td>
+                <div>
+                  <h3>{{ txn.serviceId }}</h3>
+                </div>
+              </td>
+              <td>
+                <div id="amt">
+                  <h4>{{ txn.transactionAmount | currency: 'INR' }}</h4>
+                  <h5 *ngIf="txn.transactionAmount != txn.originalCost">
+                    <del>{{ txn.originalCost | currency: 'INR' }}</del>
+                  </h5>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div>
+                  <p>{{ txn.date | date: 'mediumDate' }}</p>
+                  <p>{{ txn.date | date: 'shortTime' }}</p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <button mat-raised-button color="warn" class="status-btn">
+                    {{ txn.status }}
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </mat-list-item>
+      </mat-list>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #elseCompleted>
+    <mat-list *ngFor="let txn of completedList | orderBy: key:reverse">
+      <mat-divider></mat-divider>
+      <mat-list-item class="list-item">
+        <table>
+          <tr>
+            <td>
+              <div>
+                <h3>{{ txn.serviceId }}</h3>
+              </div>
+            </td>
+            <td>
+              <div id="amt">
+                <h4>{{ txn.transactionAmount | currency: 'INR' }}</h4>
+                <h5 *ngIf="txn.transactionAmount != txn.originalCost">
+                  <del>{{ txn.originalCost | currency: 'INR' }}</del>
+                </h5>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <p>{{ txn.date | date: 'mediumDate' }}</p>
+                <p>{{ txn.date | date: 'shortTime' }}</p>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button mat-raised-button color="warn" [matMenuTriggerFor]="aboveMenu" class="status-btn">Rating</button>
+                <mat-menu #aboveMenu="matMenu" yPosition="above">
+                  <div *ngFor="let l of ratingList" class="inline rating">
+                    <mat-icon *ngIf="ratingStarValue >= l" class="inline gold-icon" (click)="updateRating(l, txn)">star</mat-icon>
+                    <mat-icon *ngIf="ratingStarValue < l" class="inline" (mouseenter)="mouseOverHandler(l)">star_border</mat-icon>
+                  </div>
+                </mat-menu>
+                <button mat-raised-button color="warn" class="status-btn">
+                  {{ txn.status }}
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </mat-list-item>
+    </mat-list>
+  </ng-template>
+</div>
+
+<app-footer></app-footer>

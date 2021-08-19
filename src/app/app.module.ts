@@ -27,7 +27,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ServiceComponent } from './routes/list-services/service-view/service.component';
 import { CartPageComponent } from './routes/cart/cart.component';
 import { BillCardComponent } from './routes/cart/bill-card/bill-card.component';
-import { MyBookingPageComponent } from './routes/my-booking-page/my-booking-page.component';
+import { BookingComponent } from './routes/booking/booking.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
@@ -51,13 +51,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { appReducer } from './state/state';
+import { appEffects, appReducer } from './state/state';
 import { EffectsModule } from '@ngrx/effects';
-import { CustomerDashboardEffects } from './routes/customer-dashboard/state/customer-dashboard.effects';
-import { AuthEffects } from './routes/auth/state/auth.effects';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { ListServiceEffects } from './routes/list-services/state/list-services.effects';
-import { CartEffects } from './routes/cart/state/cart.effects';
 
 @NgModule({
   declarations: [
@@ -80,7 +76,7 @@ import { CartEffects } from './routes/cart/state/cart.effects';
     ServiceComponent,
     CartPageComponent,
     BillCardComponent,
-    MyBookingPageComponent,
+    BookingComponent,
     ToggleButtonComponent,
     RegistrationSpComponent,
     ManageCustomersComponent,
@@ -111,7 +107,7 @@ import { CartEffects } from './routes/cart/state/cart.effects';
     NgxPaginationModule,
     Ng2OrderModule,
     TooltipModule.forRoot(),
-    EffectsModule.forRoot([CustomerDashboardEffects, AuthEffects, ListServiceEffects, CartEffects]),
+    EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
