@@ -8,15 +8,7 @@ import { setErrorMessage, setLoading } from 'src/app/state/shared/shared.actions
 import { AppState } from 'src/app/state/state';
 
 import { isObject, isNull } from 'lodash';
-import {
-  downloadReport,
-  getAllCategory,
-  getAllCategorySuccess,
-  getAllTransactions,
-  getAllTransactionsSuccess,
-  updateRating,
-  updateRatingSuccess,
-} from './booking.actions';
+import { downloadReport, getAllTransactions, getAllTransactionsSuccess, updateRating, updateRatingSuccess } from './booking.actions';
 import { CategoryService } from 'src/app/services/category-service/category-service.service';
 import { DownloadServiceService } from 'src/app/services/download-service.service';
 import { ServiceService } from 'src/app/services/service-service/service.service';
@@ -27,9 +19,7 @@ export class BookingEffects {
     private actions$: Actions,
     private store: Store<AppState>,
     private billingService: BillingService,
-    private serviceService: ServiceService,
-    private downloadService: DownloadServiceService,
-    private categoryService: CategoryService
+    private downloadService: DownloadServiceService
   ) {}
 
   getTransactions$ = createEffect(() =>
@@ -40,25 +30,6 @@ export class BookingEffects {
           map((transactions) => {
             this.store.dispatch(setLoading({ status: false }));
             return getAllTransactionsSuccess({ transactions });
-          }),
-          catchError((error) => {
-            const errorMsg = isObject(error.error) || isNull(error.error) ? 'some error occurred' : error.error;
-            this.store.dispatch(setLoading({ status: false }));
-            return of(setErrorMessage({ errorMsg }));
-          })
-        )
-      )
-    )
-  );
-
-  getCategories$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(getAllCategory),
-      mergeMap((action) =>
-        this.categoryService.getCategoryListRequest().pipe(
-          map((categoryList) => {
-            this.store.dispatch(setLoading({ status: false }));
-            return getAllCategorySuccess({ categoryList });
           }),
           catchError((error) => {
             const errorMsg = isObject(error.error) || isNull(error.error) ? 'some error occurred' : error.error;

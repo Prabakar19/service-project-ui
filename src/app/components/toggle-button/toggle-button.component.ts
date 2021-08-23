@@ -3,11 +3,11 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-toggle-button',
   templateUrl: './toggle-button.component.html',
-  styleUrls: ['./toggle-button.component.css'],
+  styleUrls: ['./toggle-button.component.scss'],
 })
 export class ToggleButtonComponent implements OnInit {
-  @Input('list') list;
-  @Output() selectedValue: EventEmitter<string> = new EventEmitter();
+  @Input() list;
+  @Output() selectedValue = new EventEmitter();
   selectedVal: string;
   constructor() {}
 

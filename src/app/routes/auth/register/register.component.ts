@@ -40,7 +40,9 @@ export class RegisterationComponent implements OnInit {
     pincode: ['', [Validators.required, Validators.pattern('^\\d{5}[0-9]+')]],
   });
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+    this.customer$ = this.store.select(getCustomer);
+  }
 
   ngOnInit(): void {}
 
@@ -49,7 +51,6 @@ export class RegisterationComponent implements OnInit {
       this.customer = this.registrationForm.value;
       this.store.dispatch(setLoading({ status: true }));
       this.store.dispatch(custRegister({ customer: this.customer }));
-      this.customer$ = this.store.select(getCustomer);
 
       this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
         this.customer = res;

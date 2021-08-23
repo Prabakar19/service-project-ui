@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Category } from 'src/app/models/category';
 import { Customer } from 'src/app/models/customer';
 import { Transaction } from 'src/app/models/transaction';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
 import { downloadReport, getAllTransactions, updateRating } from './state/booking.actions';
-import { getCategories, getTransactions } from './state/booking.selectors';
+import { getTransactions } from './state/booking.selectors';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -24,19 +23,15 @@ export class BookingComponent implements OnInit {
   reverse = true;
   customer: Customer;
   transactions: Transaction[];
-  categoryList: Category[];
-  categoryNameList: string[];
   currentList = [];
   completedList = [];
   ratingList: Array<number> = [];
 
   transactions$: Observable<Transaction[]>;
-  categoryList$: Observable<Category[]>;
   private unsubscribe$ = new Subject<void>();
 
   constructor(private store: Store<AppState>) {
     this.transactions$ = this.store.select(getTransactions);
-    this.categoryList$ = this.store.select(getCategories);
   }
 
   ngOnInit(): void {
