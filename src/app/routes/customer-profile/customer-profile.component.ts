@@ -2,14 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { CustomerServices } from 'src/app/services/customer-service/customer.service';
+import { AppState } from 'src/app/state/state';
+import { getCustomer } from '../auth/state/auth.selectors';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 @Component({
   selector: 'app-customer-profile',
   templateUrl: './customer-profile.component.html',
-  styleUrls: ['./customer-profile.component.css'],
+  styleUrls: ['./customer-profile.component.scss'],
 })
 export class CustomerProfileComponent implements OnInit {
   pageLoaded: boolean = true;
@@ -18,6 +22,9 @@ export class CustomerProfileComponent implements OnInit {
   selectedFile: File;
   retrievedImage: any;
   errorMessage = '';
+
+  customer$: Observable<Customer>;
+  private unsubscribe$ = new Subject<void>();
 
   updationForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
@@ -36,7 +43,14 @@ export class CustomerProfileComponent implements OnInit {
     pincode: ['', [Validators.required, Validators.pattern('^\\d{5}[0-9]+')]],
   });
 
-  constructor(private customerService: CustomerServices, private fb: FormBuilder, public dialog: MatDialog, private http: HttpClient) {}
+  constructor(
+    private customerService: CustomerServices,
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private store: Store<AppState>
+  ) {
+    this.customer$ = this.store.select(getCustomer);
+  }
 
   ngOnInit(): void {
     this.customer = JSON.parse(localStorage.getItem('token'));
@@ -111,12 +125,8 @@ export class CustomerProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.customer.address[value] = result;
 
-      // console.log(this.customer.address);
       this.updateAddress(this.customer.address);
-
       this.addressForm.controls[value] = result;
-      // console.log(this.updationForm.controls[value]);
-      // console.log('The dialog was closed');
     });
   }
 
