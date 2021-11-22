@@ -8,10 +8,13 @@ import {
   custLoginSucess,
   custRegister,
   custRegisterSucess,
+  setCustomer,
   spLogin,
   spLoginSucess,
   spRegister,
   spRegisterSucess,
+  updateCustAddressSucess,
+  updateCustSucess,
 } from './auth.actions';
 
 export const initialState = {
@@ -31,8 +34,23 @@ const _environmentReducer = createReducer(
     ...state,
     customer: props.customer,
   })),
+  on(updateCustSucess, (state, props) => ({
+    ...state,
+    customer: props.customer,
+  })),
   on(addCustomerAddress, (state, props) => state),
   on(addCustomerAddressSucess, (state, props) => ({
+    ...state,
+    customer: props.customer,
+  })),
+  on(updateCustAddressSucess, (state, props) => ({
+    ...state,
+    customer: {
+      ...state.customer,
+      address: props.address,
+    },
+  })),
+  on(setCustomer, (state, props) => ({
     ...state,
     customer: props.customer,
   })),

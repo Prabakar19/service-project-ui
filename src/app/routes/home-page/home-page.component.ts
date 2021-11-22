@@ -9,7 +9,7 @@ import { CategoryService } from 'src/app/services/category-service/category-serv
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  pageLoaded: boolean = false;
+  pageLoaded = false;
   categoryList: Category[];
   categoryNameList: string[];
 

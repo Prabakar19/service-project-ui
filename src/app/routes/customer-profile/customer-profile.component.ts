@@ -1,14 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer';
 import { CustomerServices } from 'src/app/services/customer-service/customer.service';
+import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
+import { setCustomer, updateCust, updateCustAddress } from '../auth/state/auth.actions';
 import { getCustomer } from '../auth/state/auth.selectors';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-customer-profile',
@@ -16,9 +19,7 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
   styleUrls: ['./customer-profile.component.scss'],
 })
 export class CustomerProfileComponent implements OnInit {
-  pageLoaded: boolean = true;
   customer: Customer;
-  address;
   selectedFile: File;
   retrievedImage: any;
   errorMessage = '';
@@ -54,6 +55,7 @@ export class CustomerProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.customer = JSON.parse(localStorage.getItem('token'));
+    this.store.dispatch(setCustomer({ customer: this.customer }));
     this.retrievedImage = this.customer.customerPic;
 
     this.addCustomerToForm();
@@ -69,15 +71,14 @@ export class CustomerProfileComponent implements OnInit {
       password: '*******',
     });
 
-    this.updationForm.controls['firstName'].disable();
-    this.updationForm.controls['lastName'].disable();
-    this.updationForm.controls['emailId'].disable();
-    this.updationForm.controls['phoneNum'].disable();
-    this.updationForm.controls['password'].disable();
+    this.updationForm.controls.firstName.disable();
+    this.updationForm.controls.lastName.disable();
+    this.updationForm.controls.emailId.disable();
+    this.updationForm.controls.phoneNum.disable();
+    this.updationForm.controls.password.disable();
   }
 
   addAddressToForm() {
-    // console.log(this.customer);
     this.addressForm.setValue({
       houseAddress: this.customer.address.houseAddress,
       area: this.customer.address.area,
@@ -87,75 +88,74 @@ export class CustomerProfileComponent implements OnInit {
       pincode: this.customer.address.pincode,
     });
 
-    this.addressForm.controls['houseAddress'].disable();
-    this.addressForm.controls['area'].disable();
-    this.addressForm.controls['city'].disable();
-    this.addressForm.controls['state'].disable();
-    this.addressForm.controls['country'].disable();
-    this.addressForm.controls['pincode'].disable();
+    this.addressForm.controls.houseAddress.disable();
+    this.addressForm.controls.area.disable();
+    this.addressForm.controls.city.disable();
+    this.addressForm.controls.state.disable();
+    this.addressForm.controls.country.disable();
+    this.addressForm.controls.pincode.disable();
   }
+
   openDialog(value) {
     if (value === 'password') {
       const dialogRef = this.dialog.open(EditCustomerComponent, {
-        height: '400px',
+        height: 'auto',
         data: '',
       });
+
       dialogRef.afterClosed().subscribe((result) => {
         this.customer[value] = result;
         this.updationForm.controls[value] = result;
       });
     } else {
       const dialogRef = this.dialog.open(EditCustomerComponent, {
-        height: '200px',
+        height: 'auto',
         data: this.customer[value],
       });
       dialogRef.afterClosed().subscribe((result) => {
-        this.customer[value] = result;
-
-        this.updateCustomer(this.customer);
-        this.updationForm.controls[value] = result;
+        if (result) {
+          const cust = { ...this.customer };
+          cust[value] = result;
+          this.customer = cust;
+          this.updateCustomer(this.customer);
+          this.updationForm.controls[value] = result;
+        }
       });
     }
   }
-  openDialog1(value) {
+
+  openDialogAddr(value) {
     const dialogRef = this.dialog.open(EditCustomerComponent, {
-      height: '200px',
+      height: 'auto',
       data: this.customer.address[value],
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) this.customer.address[value] = result;
-
-      this.updateAddress(this.customer.address);
-      this.addressForm.controls[value] = result;
+      if (result) {
+        const cust = cloneDeep(this.customer);
+        cust.address[value] = result;
+        this.customer = cust;
+        this.updateAddress(this.customer.address);
+        this.addressForm.controls[value] = result;
+      }
     });
   }
 
   updateCustomer(cust) {
-    this.customerService.updateCustomerRequest(cust, this.customer.customerId).subscribe(
-      (res) => {
-        this.customer = res;
-        localStorage.setItem('token', JSON.stringify(this.customer));
-        window.location.reload();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.store.dispatch(setLoading({ status: true }));
+    this.store.dispatch(updateCust({ customer: cust }));
+    this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.customer = res;
+      localStorage.setItem('token', JSON.stringify(this.customer));
+    });
   }
 
   updateAddress(addr) {
-    console.log(addr);
-    this.customerService.updateAddressRequest(addr, this.customer.address.addressId).subscribe(
-      (res) => {
-        console.log(res);
-        this.customer.address = res;
-        localStorage.setItem('token', JSON.stringify(this.customer));
-        window.location.reload();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.store.dispatch(setLoading({ status: true }));
+    this.store.dispatch(updateCustAddress({ address: addr, addressId: addr.addressId }));
+    this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.customer = res;
+      localStorage.setItem('token', JSON.stringify(this.customer));
+    });
   }
 
   onFileChanged(event) {

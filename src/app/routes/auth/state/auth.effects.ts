@@ -21,6 +21,10 @@ import {
   spLoginSucess,
   spRegister,
   spRegisterSucess,
+  updateCust,
+  updateCustAddress,
+  updateCustAddressSucess,
+  updateCustSucess,
 } from './auth.actions';
 
 @Injectable()
@@ -111,6 +115,25 @@ export class AuthEffects {
     )
   );
 
+  udpateCust$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateCust),
+      mergeMap((action) => {
+        return this.customerService.updateCustomerRequest(action.customer, action.customer.customerId).pipe(
+          map((customer) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return updateCustSucess({ customer });
+          }),
+          catchError((error) => {
+            const errorMsg = 'Error';
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        );
+      })
+    )
+  );
+
   custAddressAdd$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCustomerAddress),
@@ -119,6 +142,25 @@ export class AuthEffects {
           map((customer) => {
             this.store.dispatch(setLoading({ status: false }));
             return addCustomerAddressSucess({ customer });
+          }),
+          catchError((error) => {
+            const errorMsg = 'error';
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        );
+      })
+    )
+  );
+
+  updateCustAddress$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateCustAddress),
+      mergeMap((action) => {
+        return this.customerService.updateAddressRequest(action.address, action.addressId).pipe(
+          map((address) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return updateCustAddressSucess({ address });
           }),
           catchError((error) => {
             const errorMsg = 'error';

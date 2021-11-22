@@ -43,7 +43,7 @@ export class RegistrationSpComponent implements OnInit {
     pincode: ['', [Validators.required, Validators.pattern('^\\d{5}[0-9]+')]],
   });
 
-  constructor(private store: Store<AppState>, private serviceProviderService: ServiceProviderService, private fb: FormBuilder) {}
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   ngOnInit(): void {}
 

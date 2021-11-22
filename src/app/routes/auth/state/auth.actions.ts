@@ -3,33 +3,21 @@ import { Address } from 'src/app/models/address';
 import { Customer } from 'src/app/models/customer';
 import { ServiceProvider } from 'src/app/models/service-provider';
 
-export const CUST_LOGIN = '[CUST] Login';
-export const CUST_LOGIN_SUCCESS = '[CUST] Login Success';
-export const CUST_REGISTER = '[CUST] Register';
-export const CUST_REGISTER_SUCCESS = '[CUST] Register Success';
-export const ADD_CUST_ADDRESS = '[CUST] Add Address';
-export const ADD_CUST_ADDRESS_SUCCESS = '[CUST] Add Address Success';
-export const SP_LOGIN = '[SP] Login';
-export const SP_LOGIN_SUCCESS = '[SP] Login Success';
-export const SP_REGISTER = '[SP] Register';
-export const SP_REGISTER_SUCCESS = '[SP] Register Success';
-export const ADD_SP_ADDRESS = '[SP] Add Address';
-export const ADD_SP_ADDRESS_SUCCESS = '[SP] Add Address Success';
+export const custLogin = createAction('[CUST] Login', props<{ emailId: string; password: string }>());
+export const custLoginSucess = createAction('[CUST] Login Success', props<{ customer: Customer }>());
+export const custRegister = createAction('[CUST] Register', props<{ customer: Customer }>());
+export const custRegisterSucess = createAction('[CUST] Register Success', props<{ customer: Customer }>());
+export const addCustomerAddress = createAction('[CUST] Add Address', props<{ address: Address; customerId: number }>());
+export const addCustomerAddressSucess = createAction('[CUST] Add Address Success', props<{ customer: Customer }>());
+export const updateCust = createAction('[CUST] Update Customer', props<{ customer: Customer }>());
+export const updateCustSucess = createAction('[CUST] Update Customer Success', props<{ customer: Customer }>());
+export const updateCustAddress = createAction('[CUST] Update Customer Address', props<{ address: Address; addressId: number }>());
+export const updateCustAddressSucess = createAction('[CUST] Update Customer Address Success', props<{ address: Address }>());
+export const setCustomer = createAction('[CUST] Set Customer', props<{ customer }>());
 
-export const custLogin = createAction(CUST_LOGIN, props<{ emailId: string; password: string }>());
-export const custLoginSucess = createAction(CUST_LOGIN_SUCCESS, props<{ customer: Customer }>());
-
-export const custRegister = createAction(CUST_REGISTER, props<{ customer: Customer }>());
-export const custRegisterSucess = createAction(CUST_REGISTER_SUCCESS, props<{ customer: Customer }>());
-
-export const addCustomerAddress = createAction(ADD_CUST_ADDRESS, props<{ address: Address; customerId: number }>());
-export const addCustomerAddressSucess = createAction(ADD_CUST_ADDRESS_SUCCESS, props<{ customer: Customer }>());
-
-export const spLogin = createAction(SP_LOGIN, props<{ emailId: string; password: string }>());
-export const spLoginSucess = createAction(SP_LOGIN_SUCCESS, props<{ serviceProvider: ServiceProvider }>());
-
-export const spRegister = createAction(SP_REGISTER, props<{ serviceProvider: ServiceProvider }>());
-export const spRegisterSucess = createAction(SP_REGISTER_SUCCESS, props<{ serviceProvider: ServiceProvider }>());
-
-export const addSPAddress = createAction(ADD_SP_ADDRESS, props<{ serviceAddress: Address; spId: number }>());
-export const addSPAddressSucess = createAction(ADD_SP_ADDRESS_SUCCESS, props<{ serviceProvider: ServiceProvider }>());
+export const spLogin = createAction('[SP] Login', props<{ emailId: string; password: string }>());
+export const spLoginSucess = createAction('[SP] Login Success', props<{ serviceProvider: ServiceProvider }>());
+export const spRegister = createAction('[SP] Register', props<{ serviceProvider: ServiceProvider }>());
+export const spRegisterSucess = createAction('[SP] Register Success', props<{ serviceProvider: ServiceProvider }>());
+export const addSPAddress = createAction('[SP] Add Address', props<{ serviceAddress: Address; spId: number }>());
+export const addSPAddressSucess = createAction('[SP] Add Address Success', props<{ serviceProvider: ServiceProvider }>());

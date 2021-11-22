@@ -5,13 +5,9 @@ import { Customer } from 'src/app/models/customer';
 @Component({
   selector: 'app-edit-customer',
   templateUrl: './edit-customer.component.html',
-  styleUrls: ['./edit-customer.component.css'],
 })
 export class EditCustomerComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<EditCustomerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string
-  ) {}
+  constructor(public dialogRef: MatDialogRef<EditCustomerComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   ngOnInit(): void {}
 

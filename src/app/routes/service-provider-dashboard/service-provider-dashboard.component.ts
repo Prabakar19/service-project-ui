@@ -4,11 +4,7 @@ import { ServiceProvider } from 'src/app/models/service-provider';
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { HttpClient } from '@angular/common/http';
 import { AddServiceComponent } from '../add-service/add-service.component';
-import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-service-provider-dashboard',
@@ -20,13 +16,9 @@ export class ServiceProviderDashboardComponent implements OnInit {
   cartList: Service[] = [];
 
   serviceProvider: ServiceProvider;
-  pageLoaded: boolean = false;
+  pageLoaded = false;
 
-  constructor(
-    private http: HttpClient,
-    private serviceproviderService: ServiceProviderService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private http: HttpClient, private serviceproviderService: ServiceProviderService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.serviceProvider = JSON.parse(localStorage.getItem('tokenSP'));
@@ -38,18 +30,16 @@ export class ServiceProviderDashboardComponent implements OnInit {
     // this.serviceProvider = this.serviceproviderService.getServiceProviderRequest(1);
     console.log(this.serviceProvider);
     console.log(this.serviceProvider.serviceProviderId);
-    this.serviceproviderService
-      .getServiceProviderRequest(this.serviceProvider.serviceProviderId)
-      .subscribe(
-        (res) => {
-          this.serviceProvider = res;
-          console.log(this.serviceProvider);
-          this.pageLoaded = true;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    this.serviceproviderService.getServiceProviderRequest(this.serviceProvider.serviceProviderId).subscribe(
+      (res) => {
+        this.serviceProvider = res;
+        console.log(this.serviceProvider);
+        this.pageLoaded = true;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   addToCart(service: Service) {

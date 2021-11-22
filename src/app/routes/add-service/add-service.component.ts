@@ -20,7 +20,7 @@ import { ServiceProvider } from 'src/app/models/service-provider';
 export class AddServiceComponent implements OnInit {
   service: Service;
   service2: Service;
-  errorMessage: string = '';
+  errorMessage = '';
   hide: boolean;
 
   serviceProvider: ServiceProvider;
@@ -28,8 +28,8 @@ export class AddServiceComponent implements OnInit {
 
   category: Category[];
   categoryNameList: string[];
-  pageLoaded: boolean = false;
-  discountCheck: boolean = false;
+  pageLoaded = false;
+  discountCheck = false;
 
   addServiceForm = this.fb.group({
     serviceName: ['', [Validators.required]],

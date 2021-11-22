@@ -28,10 +28,10 @@ export class NavBarComponent implements OnInit {
   }
 
   titleClick() {
-    if (this.userType == 'customer') {
+    if (this.userType === 'customer') {
       this.router.navigateByUrl('/customerdashboard');
     }
-    if (this.userType == 'sp') {
+    if (this.userType === 'sp') {
       this.router.navigateByUrl('/spdashboard');
     }
   }

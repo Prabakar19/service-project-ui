@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BillingService {
-  billing = 'api/billing/';
-  transaction = '/api/transaction/';
+  billing = 'api/billing';
+  transaction = '/api/transaction';
   getServicesUrl = 'api/customer/transaction/';
 
   constructor(private http: HttpClient) {}
@@ -24,6 +24,6 @@ export class BillingService {
     return this.http.get<any>(this.getServicesUrl + id);
   }
   updateTransactionRequest(data: any, id: number): Observable<any> {
-    return this.http.put<any>(this.transaction + id, data);
+    return this.http.put<any>(this.transaction + '/' + id, data);
   }
 }
