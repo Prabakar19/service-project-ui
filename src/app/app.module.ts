@@ -17,7 +17,7 @@ import { CardComponent } from './components/card/card.component';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { SelectComponent } from './components/select/select.component';
-import { AuthGuard } from './Guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { ListServicesComponent } from './routes/list-services/list-services.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { RatingComponent } from './components/rating/rating.component';
@@ -31,20 +31,20 @@ import { BookingComponent } from './routes/booking/booking.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
-import { ServiceProviderDashboardComponent } from './routes/service-provider-dashboard/service-provider-dashboard.component';
-import { AddServiceComponent } from './routes/add-service/add-service.component';
-import { ModifyServiceComponent } from './routes/modify-service/modify-service.component';
-import { DeleteServiceComponent } from './routes/delete-service/delete-service.component';
-import { SpServiceCardComponent } from './components/sp-service-card/sp-service-card.component';
+import { SPDashboardComponent } from './routes/sp-dashboard/sp-dashboard.component';
+import { AddServiceComponent } from './routes/sp-dashboard/add-service/add-service.component';
+import { ModifyServiceComponent } from './routes/sp-dashboard/modify-service/modify-service.component';
+import { DeleteServiceComponent } from './routes/sp-dashboard/delete-service/delete-service.component';
+import { SpServiceCardComponent } from './routes/sp-dashboard/sp-service-card/sp-service-card.component';
 import { CustomerProfileComponent } from './routes/customer-profile/customer-profile.component';
 import { EditCustomerComponent } from './routes/customer-profile/edit-customer/edit-customer.component';
 import { AccountCircleComponent } from './components/account-circle/account-circle.component';
 import { EmptyCardComponent } from './components/empty-card/empty-card.component';
 import { FooterComponent } from './components/nav-bar/footer/footer.component';
 import { SocialMediaLoginComponent } from './routes/social-media-login/social-media-login.component';
-import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
+import { AddServiceCardComponent } from './routes/sp-dashboard/add-service-card/add-service-card.component';
 import { SPLoginComponent } from './routes/auth/splogin/splogin-component';
-import { AuthguardspGuard } from './Guards/authguardsp.guard';
+import { AuthguardspGuard } from './guards/authguardsp.guard';
 import { SpProfileComponent } from './routes/sp-profile/sp-profile.component';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -81,7 +81,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     RegistrationSpComponent,
     ManageCustomersComponent,
     SpReportComponent,
-    ServiceProviderDashboardComponent,
+    SPDashboardComponent,
     AddServiceComponent,
     ModifyServiceComponent,
     DeleteServiceComponent,
@@ -92,7 +92,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     EmptyCardComponent,
     FooterComponent,
     SocialMediaLoginComponent,
-    DashboardCardComponent,
+    AddServiceCardComponent,
     SpProfileComponent,
     DialogComponent,
   ],

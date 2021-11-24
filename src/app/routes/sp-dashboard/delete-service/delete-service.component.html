@@ -1,0 +1,11 @@
+<mat-card class="form-class">
+  <mat-card-title>Warning!!</mat-card-title>
+  <p>Are you sure, You want to delete this Service?</p>
+  <div class="btn-grp">
+    <button class="btn" type="submit" mat-raised-button color="warn" [mat-dialog-close]="data">Delete</button>
+    <button class="btn" type="submit" mat-raised-button mat-dialog-close>Cancel</button>
+  </div>
+  <div>
+    <mat-hint style="color: red">{{ errorMessage }}</mat-hint>
+  </div>
+</mat-card>

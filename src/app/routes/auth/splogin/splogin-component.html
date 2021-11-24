@@ -1,6 +1,6 @@
 <mat-card class="form-class">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>Service Provider Login</mat-card-title>
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -18,5 +18,6 @@
 
     <button type="submit" mat-raised-button color="primary">Login</button>
     <mat-hint style="color: red">{{ errorMessage }}</mat-hint>
+    <div routerLink="/spregister">New user?</div>
   </form>
 </mat-card>

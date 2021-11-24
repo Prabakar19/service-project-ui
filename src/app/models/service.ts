@@ -2,7 +2,7 @@ export interface Service {
   serviceId: number;
   serviceName: string;
   cost: number;
-  discountedCost: number;
+  discountedCost?: number;
   discount: number;
   discountAvailability: boolean;
   shortDescription: string;

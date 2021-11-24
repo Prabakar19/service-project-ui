@@ -12,14 +12,14 @@ import { RegistrationSpComponent } from './routes/auth/spregister/spregister.com
 import { RegisterationComponent } from './routes/auth/register/register.component';
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
-import { AuthGuard } from './Guards/auth.guard';
-import { ServiceProviderDashboardComponent } from './routes/service-provider-dashboard/service-provider-dashboard.component';
-import { AddServiceComponent } from './routes/add-service/add-service.component';
-import { ModifyServiceComponent } from './routes/modify-service/modify-service.component';
-import { DeleteServiceComponent } from './routes/delete-service/delete-service.component';
+import { AuthGuard } from './guards/auth.guard';
+import { SPDashboardComponent } from './routes/sp-dashboard/sp-dashboard.component';
+import { AddServiceComponent } from './routes/sp-dashboard/add-service/add-service.component';
+import { ModifyServiceComponent } from './routes/sp-dashboard/modify-service/modify-service.component';
+import { DeleteServiceComponent } from './routes/sp-dashboard/delete-service/delete-service.component';
 import { SocialMediaLoginComponent } from './routes/social-media-login/social-media-login.component';
 import { SPLoginComponent } from './routes/auth/splogin/splogin-component';
-import { AuthguardspGuard } from './Guards/authguardsp.guard';
+import { AuthguardspGuard } from './guards/authguardsp.guard';
 import { SpProfileComponent } from './routes/sp-profile/sp-profile.component';
 
 const routes: Routes = [
@@ -47,13 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'spdashboard',
-    component: ServiceProviderDashboardComponent,
-    canActivate: [AuthguardspGuard],
-  },
-
-  {
-    path: 'serviceproviderdashboard',
-    component: ServiceProviderDashboardComponent,
+    component: SPDashboardComponent,
     canActivate: [AuthguardspGuard],
   },
   {

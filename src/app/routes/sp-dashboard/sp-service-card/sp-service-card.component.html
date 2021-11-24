@@ -1,0 +1,30 @@
+<div class="container row">
+  <div class="img-container col-4">
+    <img [src]="retrievedImage" />
+  </div>
+  <div class="card-container col-8">
+    <mat-card>
+      <mat-card-title class="title">{{ service.serviceName }}</mat-card-title>
+      <mat-card-content
+        >{{ service.details }}
+        <div class="cost">
+          <h4 *ngIf="service.discountAvailability; else elseBlock">
+            ₹{{ calculateCost(service.cost, service.discount) }}
+            <span>
+              <del>₹{{ service.cost }}</del> {{ service.discount }}% off
+            </span>
+          </h4>
+          <ng-template #elseBlock>
+            <h4>₹{{ service.cost }}</h4>
+          </ng-template>
+        </div>
+        <app-rating [rating]="service.rating"></app-rating>
+        <mat-card-content>{{ description }}</mat-card-content>
+      </mat-card-content>
+      <div *ngIf="button" class="card-button">
+        <button mat-raised-button (click)="editService()">Edit</button>
+        <button mat-raised-button (click)="deleteService()">Delete</button>
+      </div>
+    </mat-card>
+  </div>
+</div>

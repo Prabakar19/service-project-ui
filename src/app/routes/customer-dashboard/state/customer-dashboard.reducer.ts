@@ -1,5 +1,12 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import * as DashboardActions from './customer-dashboard.actions';
+import {
+  loadCategory,
+  loadCategorySuccess,
+  loadCities,
+  loadCitiesSuccess,
+  loadSelectedCategory,
+  loadSelectedCategorySuccess,
+} from './customer-dashboard.actions';
 
 export const initialState = {
   category: [],
@@ -9,18 +16,18 @@ export const initialState = {
 
 const _dashBoardReducer = createReducer(
   initialState,
-  on(DashboardActions.loadCategory, (state) => state),
-  on(DashboardActions.loadCategorySuccess, (state, props) => ({
+  on(loadCategory, (state) => state),
+  on(loadCategorySuccess, (state, props) => ({
     ...state,
     category: props.categories,
   })),
-  on(DashboardActions.loadSelectedCategory, (state) => state),
-  on(DashboardActions.loadSelectedCategorySuccess, (state, props) => ({
+  on(loadSelectedCategory, (state) => state),
+  on(loadSelectedCategorySuccess, (state, props) => ({
     ...state,
     filteredCategoryNames: props.categoryNames,
   })),
-  on(DashboardActions.loadCities, (state) => state),
-  on(DashboardActions.loadCitiesSuccess, (state, { cities }) => ({
+  on(loadCities, (state) => state),
+  on(loadCitiesSuccess, (state, { cities }) => ({
     ...state,
     cities: cities,
   }))

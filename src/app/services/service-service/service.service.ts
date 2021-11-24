@@ -21,8 +21,11 @@ export class ServiceService {
     return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
-  deleteServiceRequest(data: any, id: number): Observable<any> {
-    return this.http.delete<any>(this.root + '/id/' + id, data);
+  deleteServiceRequest(id: number): Observable<any> {
+    const requestOptions: Object = {
+      responseType: 'text',
+    };
+    return this.http.delete<any>(this.root + '/id/' + id, requestOptions);
   }
 
   updateServiceRequest(data: any, id: number): Observable<any> {

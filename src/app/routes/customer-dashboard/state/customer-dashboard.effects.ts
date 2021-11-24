@@ -7,7 +7,17 @@ import { CategoryService } from 'src/app/services/category-service/category-serv
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import * as DashBoardActions from './customer-dashboard.actions';
+import {
+  loadCategory,
+  loadCategoryFailure,
+  loadCategorySuccess,
+  loadCities,
+  loadCitiesFailure,
+  loadCitiesSuccess,
+  loadSelectedCategory,
+  loadSelectedCategoryFailure,
+  loadSelectedCategorySuccess,
+} from './customer-dashboard.actions';
 
 @Injectable()
 export class CustomerDashboardEffects {
@@ -20,14 +30,14 @@ export class CustomerDashboardEffects {
 
   loadCategory$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DashBoardActions.loadCategory),
+      ofType(loadCategory),
       mergeMap(() =>
         this.categoryService.getCategoryListRequest().pipe(
           map((categories) => {
             this.store.dispatch(setLoading({ status: false }));
-            return DashBoardActions.loadCategorySuccess({ categories });
+            return loadCategorySuccess({ categories });
           }),
-          catchError((error) => of(DashBoardActions.loadCategoryFailure({ error })))
+          catchError((error) => of(loadCategoryFailure({ error })))
         )
       )
     )
@@ -35,14 +45,14 @@ export class CustomerDashboardEffects {
 
   selectedCategory$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DashBoardActions.loadSelectedCategory),
+      ofType(loadSelectedCategory),
       mergeMap((action) =>
         this.categoryService.getCategoriesByCity(action.cityName).pipe(
           map((categoryNames) => {
             this.store.dispatch(setLoading({ status: false }));
-            return DashBoardActions.loadSelectedCategorySuccess({ categoryNames });
+            return loadSelectedCategorySuccess({ categoryNames });
           }),
-          catchError((error) => of(DashBoardActions.loadSelectedCategoryFailure({ error })))
+          catchError((error) => of(loadSelectedCategoryFailure({ error })))
         )
       )
     )
@@ -50,14 +60,14 @@ export class CustomerDashboardEffects {
 
   loadCities$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DashBoardActions.loadCities),
+      ofType(loadCities),
       mergeMap(() =>
         this.serviceProviderService.getSPCities().pipe(
           map((cities) => {
             this.store.dispatch(setLoading({ status: false }));
-            return DashBoardActions.loadCitiesSuccess({ cities });
+            return loadCitiesSuccess({ cities });
           }),
-          catchError((error) => of(DashBoardActions.loadCitiesFailure({ error })))
+          catchError((error) => of(loadCitiesFailure({ error })))
         )
       )
     )
