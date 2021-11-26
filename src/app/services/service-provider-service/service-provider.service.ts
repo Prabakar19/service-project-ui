@@ -25,9 +25,7 @@ export class ServiceProviderService {
     return this.http.get<any>(this.root + '/report/' + id);
   }
   updateTransactionStatusById(id: number, status: string): Observable<any> {
-    return this.http.put<any>(this.transaction + id, {
-      status,
-    });
+    return this.http.put<any>(this.transaction + id, { status });
   }
   getServiceTransactionCount(id: number): Observable<any> {
     return this.http.get<any>(this.root + '/servicecount/' + id);

@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
 import { getSP } from './state/sp-dashboard.actions';
 import { takeUntil } from 'rxjs/operators';
 import { setLoading } from 'src/app/state/shared/shared.actions';
-import { geSP } from './state/sp-dashboard.selectors';
+import { getServiceProvider } from './state/sp-dashboard.selectors';
 
 @Component({
   selector: 'app-sp-dashboard',
@@ -25,7 +25,7 @@ export class SPDashboardComponent implements OnInit {
   serviceProvider$: Observable<ServiceProvider>;
   private unsubscribe$ = new Subject<void>();
   constructor(private store: Store<AppState>, public dialog: MatDialog) {
-    this.serviceProvider$ = this.store.select(geSP);
+    this.serviceProvider$ = this.store.select(getServiceProvider);
   }
 
   ngOnInit(): void {

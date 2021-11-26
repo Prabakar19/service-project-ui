@@ -6,7 +6,7 @@ import { Category } from 'src/app/models/category';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { AppState } from 'src/app/state/state';
 import { Store } from '@ngrx/store';
-import { geSP, getCategory } from '../state/sp-dashboard.selectors';
+import { getServiceProvider, getCategory } from '../state/sp-dashboard.selectors';
 import { addService, loadCategory } from '../state/sp-dashboard.actions';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { takeUntil } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class AddServiceComponent implements OnInit {
     categoryId: ['', [Validators.required]],
   });
   constructor(private store: Store<AppState>, private http: HttpClient, private fb: FormBuilder) {
-    this.serviceProvider$ = this.store.select(geSP);
+    this.serviceProvider$ = this.store.select(getServiceProvider);
     this.categoryList$ = this.store.select(getCategory);
   }
 

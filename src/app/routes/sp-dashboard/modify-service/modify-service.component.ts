@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Service } from 'src/app/models/service';
 import { Category } from 'src/app/models/category';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/state';
 import { setLoading } from 'src/app/state/shared/shared.actions';
@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { editService, loadCategory } from '../state/sp-dashboard.actions';
 import { getCategory } from '../state/sp-dashboard.selectors';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-modify-service',
@@ -42,7 +43,8 @@ export class ModifyServiceComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ModifyServiceComponent>,
-    @Inject(MAT_DIALOG_DATA) public serviceData: Service
+    @Inject(MAT_DIALOG_DATA) public serviceData: Service,
+    public dialog: MatDialog
   ) {
     this.categoryList$ = this.store.select(getCategory);
   }
@@ -69,6 +71,10 @@ export class ModifyServiceComponent implements OnInit {
       this.store.dispatch(setLoading({ status: true }));
       this.store.dispatch(editService({ service, serviceId: service.serviceId }));
       this.modifyServiceForm.reset;
+    } else {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        data: 'Error! All fields need to be filled',
+      });
     }
   }
 

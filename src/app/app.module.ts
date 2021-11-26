@@ -19,7 +19,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { SelectComponent } from './components/select/select.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ListServicesComponent } from './routes/list-services/list-services.component';
-import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { ServiceCardComponent } from './routes/list-services/service-card/service-card.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2OrderModule } from 'ng2-order-pipe';

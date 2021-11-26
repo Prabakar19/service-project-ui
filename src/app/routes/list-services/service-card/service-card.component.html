@@ -1,0 +1,33 @@
+<div class="container row">
+  <div class="img-container col-4">
+    <img [src]="retrievedImage" />
+  </div>
+  <div class="card-container col-8">
+    <mat-card>
+      <mat-card-title class="title">{{ service.serviceName }}</mat-card-title>
+      <mat-card-content
+        >{{ service.details }}
+        <div class="cost">
+          <h4 *ngIf="service.discountAvailability; else elseBlock">
+            {{ service.discountedCost | currency: 'INR' }}
+            <span
+              ><del>{{ service.cost | currency: 'INR' }}</del> {{ service.discount }}% off</span
+            >
+          </h4>
+          <ng-template #elseBlock
+            ><h2>{{ service.cost | currency: 'INR' }}</h2></ng-template
+          >
+        </div>
+        <app-rating [rating]="service.rating"></app-rating>
+
+        <div *ngIf="button" class="card-button">
+          <button mat-raised-button (click)="callParent()" [disabled]="cartAddedVisible">Add to Cart</button>
+          <div *ngIf="cartAddedVisible" class="inline">
+            <mat-icon color="warn">check_circle</mat-icon>
+            <mat-label>Added</mat-label>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

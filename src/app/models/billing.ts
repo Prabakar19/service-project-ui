@@ -1,3 +1,5 @@
+import { Transaction } from './transaction';
+
 export interface Billing {
   billingId: number;
   cost: number;
@@ -6,5 +8,5 @@ export interface Billing {
   originalCost: number;
   customerId: number;
   serviceProviderId: number;
-  transaction: [];
+  transactions: Transaction[];
 }

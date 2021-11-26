@@ -17,6 +17,8 @@ import { AuthEffects } from '../routes/auth/state/auth.effects';
 import { CustomerDashboardEffects } from '../routes/customer-dashboard/state/customer-dashboard.effects';
 import { spDashBoardReducer } from '../routes/sp-dashboard/state/sp-dashboard.reducer';
 import { SPDashboardEffects } from '../routes/sp-dashboard/state/sp-dashboard.effects';
+import { ManageCustomerReducer } from '../routes/manage-customers/state/manage.customers.reducers';
+import { ManageCustomerEffects } from '../routes/manage-customers/state/manage.customers.effects';
 
 export interface DashboardState {
   category: Category[];
@@ -49,6 +51,10 @@ export interface SPDashboardSate {
   category: Category[];
 }
 
+export interface ManageCustomerSate {
+  serviceProvider: ServiceProvider;
+}
+
 export interface SharedState {
   showLoading: boolean;
   errorMessage: string;
@@ -61,6 +67,7 @@ export interface AppState {
   booking: Booking;
   environment: EnvironmentState;
   spDashboard: SPDashboardSate;
+  manageCustomer: ManageCustomerSate;
   shared: SharedState;
 }
 
@@ -70,8 +77,17 @@ export const appReducer = {
   cart: cartReducer,
   booking: bookingReducer,
   environment: environmentReducer,
+  manageCustomer: ManageCustomerReducer,
   spDashboard: spDashBoardReducer,
   shared: sharedReducer,
 };
 
-export const appEffects = [CustomerDashboardEffects, AuthEffects, ListServiceEffects, CartEffects, BookingEffects, SPDashboardEffects];
+export const appEffects = [
+  CustomerDashboardEffects,
+  AuthEffects,
+  ListServiceEffects,
+  CartEffects,
+  BookingEffects,
+  SPDashboardEffects,
+  ManageCustomerEffects,
+];

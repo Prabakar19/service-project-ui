@@ -9,7 +9,6 @@ import { ServiceProvider } from 'src/app/models/service-provider';
 })
 export class ServiceCardComponent implements OnInit {
   @Input() service: Service;
-  @Input() description: string;
   @Input() button: boolean;
   @Output() clickEvent = new EventEmitter();
 
@@ -23,7 +22,7 @@ export class ServiceCardComponent implements OnInit {
   }
 
   calculateCost(cost: number, discount: number): number {
-    return cost - (discount / 100) * cost;
+    return Math.round(cost - (discount / 100) * cost);
   }
 
   callParent(): void {

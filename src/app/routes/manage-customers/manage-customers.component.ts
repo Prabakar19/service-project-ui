@@ -1,102 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { Billing } from 'src/app/models/billing';
+import { Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+import { ServiceProvider } from 'src/app/models/service-provider';
 import { ServiceProviderService } from 'src/app/services/service-provider-service/service-provider.service';
+import { AppState } from 'src/app/state/state';
+import { getServiceProvider } from 'src/app/routes/manage-customers/state/manage.customers.selectors';
+import { takeUntil } from 'rxjs/operators';
+import { getSP, udpateTransStatus } from './state/manage.customers.actions';
+import { setLoading } from 'src/app/state/shared/shared.actions';
+import { Billing } from 'src/app/models/billing';
+
 @Component({
   selector: 'app-manage-customers',
   templateUrl: './manage-customers.component.html',
-  styleUrls: ['./manage-customers.component.css'],
+  styleUrls: ['./manage-customers.component.scss'],
 })
 export class ManageCustomersComponent implements OnInit {
-  constructor(private serviceProviderService: ServiceProviderService) {}
-
+  filteredBills: Billing[];
   completeBillings: any;
   billings: Array<any>;
   temp: any;
   totalRecords: number;
-  selectedToggle: String = 'ongoing';
+  serviceProvider: ServiceProvider;
+  selectedToggle = 'ongoing';
   spId = 1;
 
+  serviceProvider$: Observable<ServiceProvider>;
+  billings$: Observable<Billing[]>;
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private store: Store<AppState>, private serviceProviderService: ServiceProviderService) {
+    this.serviceProvider$ = this.store.select(getServiceProvider);
+  }
+
   ngOnInit(): void {
+    this.serviceProvider = JSON.parse(localStorage.getItem('tokenSP'));
     this.getServiceProviderBills();
   }
 
-  accept(selected) {
-    if (this.selectedToggle === 'ongoing') {
-      console.log(selected._value);
-      selected._value.forEach((element) => {
-        console.log(element);
-        this.serviceProviderService
-          .updateTransactionStatusById(element, 'completed')
-          .subscribe(
-            (res) => {
-              console.log(res);
-              this.getServiceProviderBills();
-            },
-            (err) => {
-              console.log(err);
-            }
-          );
-      });
-    } else if (this.selectedToggle === 'completed') {
-      console.log(selected._value);
-      selected._value.forEach((element) => {
-        console.log(element);
-        this.serviceProviderService
-          .updateTransactionStatusById(element, 'ongoing')
-          .subscribe(
-            (res) => {
-              console.log(res);
-              this.getServiceProviderBills();
-            },
-            (err) => {
-              console.log(err);
-            }
-          );
-      });
-    }
-  }
-
-  selectedValueHandler(selectedValue: string) {
-    const tempBill = [];
-    this.selectedToggle = selectedValue;
-    console.log(this.billings);
-    this.filterBillings();
-    console.log(selectedValue);
-  }
-
+  //TODO: understand this logic and make it better
   filterBillings() {
     const tempBill = [];
+
     this.completeBillings.forEach((bill) => {
-      const temp = bill.transactions.filter(
-        (transaction) => transaction.status === this.selectedToggle
-      );
+      const temp = bill.transactions.filter((transaction) => transaction.status === this.selectedToggle);
       if (temp.length) {
         tempBill.push(bill);
       }
     });
     this.billings = tempBill.slice();
-    this.billings.sort((a, b) =>
-      a.billingId > b.billingId ? 1 : b.billingId > a.billingId ? -1 : 0
-    );
-    console.log(tempBill);
+    this.billings.sort((a, b) => (a.billingId > b.billingId ? 1 : b.billingId > a.billingId ? -1 : 0));
+  }
+
+  changeTransStatus(selected) {
+    const status = this.selectedToggle === 'ongoing' ? 'completed' : 'ongoing';
+
+    // TODO: update multiple trancation status in single API call  - need to update backend
+    selected._value.forEach((transId) => {
+      this.store.dispatch(setLoading({ status: true }));
+      this.store.dispatch(udpateTransStatus({ transId, status }));
+    });
+  }
+
+  selectedValueHandler(selectedValue: string) {
+    this.selectedToggle = selectedValue;
+    this.filterBillings();
   }
 
   getServiceProviderBills() {
-    console.log('hey');
-
-    this.serviceProviderService.getServiceProviderRequest(this.spId).subscribe(
-      (res) => {
-        console.log(res);
+    const serviceProviderId = this.serviceProvider.serviceProviderId;
+    this.store.dispatch(setLoading({ status: true }));
+    this.store.dispatch(getSP({ serviceProviderId }));
+    this.serviceProvider$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      if (res) {
         this.temp = res;
-        this.billings = this.temp.billings;
-        this.completeBillings = this.temp.billings;
+        this.billings = res.billings;
+        this.completeBillings = res.billings;
         this.filterBillings();
         this.totalRecords = this.billings.length;
-        console.log(this.billings);
-      },
-      (err) => {
-        console.log(err);
       }
-    );
+    });
   }
 }
