@@ -24,11 +24,12 @@
         display: block;
   
         .btn {
+          padding: 5px;
           border-radius: 10px;
           border: 2px solid white;
           background-color: transparent;
-          height: 40px;
-          width: 150px;
+          height: 45px;
+          width: 160px;
           color: #fff;
           font-size: 1.3em;
           box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
@@ -50,6 +51,7 @@
 
       .search {
         margin-left: 25%;
+        width: 90%;
 
         .inline {
           display: inline-block;
