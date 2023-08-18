@@ -1,6 +1,6 @@
 export interface Category {
-  categoryId: number;
+  categoryId: string;
   categoryName: string;
-  services: Object[];
+  // services: Object[];
   categoryPic: any;
 }

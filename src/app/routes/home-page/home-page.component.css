@@ -1,40 +1,62 @@
 .container {
   position: relative;
-}
 
-#header1 {
-  background: url("banner.jpg");
-  background-size: cover;
-  width: 100%;
-  z-index: 1;
-  position: absolute;
-}
+  #header1 {
+    background: url("src/app/assets/home_banner.jpg");
+    background-size: cover;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
 
-.banner {
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 1),
-    rgba(0, 0, 0, 0.1)
-  );
-  padding-top: 20px;
-  padding-bottom: 200px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.navbar {
-  float: right;
-  display: block;
-}
-.inline {
-  display: inline-block;
-}
-.heading {
-  margin-top: 130px;
-  margin-left: 10%;
-  text-align: center;
-}
-.search {
-  margin-left: 25%;
+    .banner {
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1),
+        rgba(0, 0, 0, 0.1)
+      );
+      padding-top: 20px;
+      padding-bottom: 200px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .navbar {
+        float: right;
+        display: block;
+  
+        .btn {
+          border-radius: 10px;
+          border: 2px solid white;
+          background-color: transparent;
+          height: 40px;
+          width: 150px;
+          color: #fff;
+          font-size: 1.3em;
+          box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+          margin: 10px;
+  
+          &:hover {
+            cursor: pointer;
+            background-color: #fff;
+            color: black;
+          }
+        }
+      }
+
+      .heading {
+        margin-top: 130px;
+        margin-left: 10%;
+        text-align: center;
+      }
+
+      .search {
+        margin-left: 25%;
+
+        .inline {
+          display: inline-block;
+        }
+      }
+    }
+  }
 }
 
 h1 {
@@ -47,23 +69,6 @@ h3 {
   font-family: "Courier New", monospace;
   font-size: 20px;
   color: white;
-}
-
-.btn {
-  border-radius: 10px;
-  border: 2px solid white;
-  background-color: transparent;
-  height: 40px;
-  width: 150px;
-  color: #fff;
-  font-size: 1.3em;
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
-  margin: 10px;
-}
-.btn:hover {
-  cursor: pointer;
-  background-color: #fff;
-  color: black;
 }
 
 mat-card {
