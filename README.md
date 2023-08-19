@@ -1,5 +1,5 @@
 # AuServiceProject
-Online service platform where house-related essential services are offered.
+Online service platform where house-related essential services are offered
 
 
 
