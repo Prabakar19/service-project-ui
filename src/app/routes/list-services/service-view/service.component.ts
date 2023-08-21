@@ -46,18 +46,18 @@ export class ServiceComponent implements OnInit {
 
     this.serviceProvider$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.serviceProvider = cloneDeep(res);
-      this.retrievedImage = 'data:image/jpeg;base64,' + this.serviceProvider?.serviceProviderPic;
-      this.calculateDiscountCost();
+      // this.retrievedImage = 'data:image/jpeg;base64,' + this.serviceProvider?.serviceProviderPic; // TODO: fix this
+      // this.calculateDiscountCost(); // TODO: Fix this method
     });
   }
 
-  calculateDiscountCost() {
-    if (this.serviceProvider) {
-      this.serviceProvider.services.map((service) => {
-        service.discountedCost = Math.round(service.cost - service.discount * 0.01 * service.cost);
-      });
-    }
-  }
+  // calculateDiscountCost() {
+  //   if (this.serviceProvider) {
+  //     this.serviceProvider.services.map((service) => {
+  //       service.discountedCost = Math.round(service.cost - service.discount * 0.01 * service.cost);
+  //     });
+  //   }
+  // }
 
   addToCart(service: Service) {
     if (!localStorage.getItem('cart')) {

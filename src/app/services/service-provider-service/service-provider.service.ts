@@ -20,7 +20,7 @@ export class ServiceProviderService {
     return this.http.post<any>(this.address + spId, data);
   }
   getServiceProviderRequest(id: number): Observable<any> {
-    return this.http.get<any>(this.root + '/id/' + id);
+    return this.http.get<any>(this.root + '/' + id);
   }
   getServiceProviderReport(id: number): Observable<any> {
     return this.http.get<any>(this.root + '/report/' + id);

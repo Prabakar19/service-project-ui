@@ -1,5 +1,5 @@
 export interface Service {
-  serviceId: number;
+  serviceId: string;
   serviceName: string;
   cost: number;
   discountedCost?: number;
