@@ -54,6 +54,7 @@ export class ListServicesComponent implements OnInit {
 
     this.category$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.category = res;
+      console.log(this.category);
       if (this.category) {
         this.store.dispatch(setLoading({ status: true }));
         this.store.dispatch(loadServices({ catId: this.category.categoryId, location: this.location }));

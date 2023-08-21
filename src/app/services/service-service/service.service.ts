@@ -32,7 +32,7 @@ export class ServiceService {
     return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
-  getServiceList(id: number, name: string): Observable<any> {
+  getServiceList(id: string, name: string): Observable<any> {
     return this.http.get<any>(this.root + '/' + id + '/' + name);
   }
 }

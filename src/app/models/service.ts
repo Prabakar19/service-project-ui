@@ -11,5 +11,6 @@ export interface Service {
   serviceProviderId: number;
   categoryId: number;
   rating: number;
-  servicePic: File;
+  servicePic: string;
+  city: string;
 }
