@@ -18,7 +18,7 @@ export class CategoryService {
   }
 
   getCategoriesByCity(name): Observable<any> {
-    return this.http.get<any>(this.root + '/categorybycity/' + name);
+    return this.http.get<any>(this.root + '/all/' + name);
   }
 
   getCategoryByNameRequest(categoryName: string): Observable<any> {

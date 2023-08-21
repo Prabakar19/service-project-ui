@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.customer = res;
         this.loginForm.reset;
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('token', JSON.stringify(this.customer));
+        localStorage.setItem('token', JSON.stringify(this.customer)); //TODO: change this storage to db call
         localStorage.setItem('cart', JSON.stringify([]));
       });
     }

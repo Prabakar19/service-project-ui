@@ -3,7 +3,7 @@
   <app-select
     *ngIf="(cities$ | async)?.length > 0"
     [data]="cities$ | async"
-    [title]="title"
+    [title]="city_default"
     (selectedItem)="selectEventHandler($event)"
   ></app-select>
   <app-search-bar [listData]="categoryNameList" (selectedData)="goListPage($event)"></app-search-bar>

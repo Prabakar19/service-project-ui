@@ -16,14 +16,14 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./customer-dashboard.component.scss'],
 })
 export class CustomerDashboardComponent implements OnInit {
+  city_default: string = 'City';
+  bestOffers = ['', '', ''];
+
   selectedLocation: string;
   errorMessage: string;
   categoryNameList: string[];
-  cities: string[];
   customer: Customer;
-  title = 'City';
   localtionSelect = false;
-  bestOffers = ['', '', ''];
 
   categoryList$: Observable<Category[]>;
   cities$: Observable<string[]>;
