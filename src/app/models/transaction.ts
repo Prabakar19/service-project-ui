@@ -1,8 +1,8 @@
 export interface Transaction {
-  transactionId: number;
-  serviceId: number;
-  billingId: number;
-  customerId: number;
+  transactionId: string;
+  serviceId: string;
+  billingId: string;
+  customerId: string;
   status: string;
   transactionRating: number;
   transactionAmount: number;
