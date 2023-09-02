@@ -8,7 +8,7 @@ import { Service } from 'src/app/models/service';
 import { Transaction } from 'src/app/models/transaction';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { addBilling, addTransaction, getCartListAction, setCartList } from './state/cart.actions';
+import { addBilling, addTransactions, getCartListAction, setCartList } from './state/cart.actions';
 import { getBilling, getCartList } from './state/cart.selectors';
 
 @Component({
@@ -22,6 +22,7 @@ export class CartPageComponent implements OnInit {
   customer: Customer;
   billing: Partial<Billing> = {};
   transaction: Partial<Transaction> = {};
+  transactionList: Partial<Transaction>[] = [];
   serviceProviderList;
 
   cartList$: Observable<Service[]>;
@@ -71,12 +72,6 @@ export class CartPageComponent implements OnInit {
     this.serviceList = serviceList;
   }
 
-  removeItem(item) {
-    const cartList = this.cartList.filter((cat) => cat.serviceId !== item.serviceId);
-    this.store.dispatch(setCartList({ cartList }));
-    localStorage.setItem('cart', JSON.stringify(cartList));
-  }
-
   checkOutHandler(serviceList) {
     this.store.dispatch(setLoading({ status: true }));
     this.customer = JSON.parse(localStorage.getItem('token'));
@@ -94,26 +89,35 @@ export class CartPageComponent implements OnInit {
     this.billing$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.billing = res;
       if (this.billing) {
-        serviceList.map((service) => {
-          this.addTransaction(service.serviceId, billing.customerId, this.billing.billingId);
-          this.deleteCheckedOutHandler(serviceList);
-          // TODO - cut out these function call and make it possible here
-        });
+        this.addTransactionsList(serviceList);
+        // this.deleteCheckedOutHandler(serviceList);
       }
     });
   }
 
-  addTransaction(serviceId, custId, billId) {
-    this.transaction.serviceId = serviceId;
-    this.transaction.billingId = billId;
-    this.transaction.customerId = custId;
-    this.transaction.status = 'ongoing';
-    this.store.dispatch(addTransaction({ transaction: this.transaction }));
+  addTransactionsList(serviceList) {
+    serviceList.map((service) => {
+      let transaction: Partial<Transaction> = {};
+      transaction.serviceId = service.serviceId;
+      transaction.originalCost = service.cost;
+      transaction.transactionAmount = service.discountedCost;
+      transaction.billingId = this.billing.billingId;
+      transaction.status = 'ongoing';
+      this.transactionList.push(transaction);
+    });
+    this.store.dispatch(addTransactions({ transactions: this.transactionList }));
   }
 
   deleteCheckedOutHandler(serviceList) {
     serviceList.map((service) => {
       this.removeItem(service);
     });
+  }
+
+  removeItem(item) {
+    // TODO: add code to remove cart items form database
+    const cartList = this.cartList.filter((cat) => cat.serviceId !== item.serviceId);
+    this.store.dispatch(setCartList({ cartList }));
+    localStorage.setItem('cart', JSON.stringify(cartList));
   }
 }

@@ -13,11 +13,12 @@ export class BillingService {
   constructor(private http: HttpClient) {}
 
   addBillingRequest(data: any): Observable<any> {
+    //TODO: fix action type is sending in payload
     return this.http.post<any>(this.billing, data);
   }
 
-  addTransactionRequest(data: any): Observable<any> {
-    return this.http.post<any>(this.transaction, data);
+  addTransactionListRequest(data: any): Observable<any> {
+    return this.http.post<any>(this.transaction + '/list', data);
   }
 
   getServicesRequest(id: number): Observable<any> {
