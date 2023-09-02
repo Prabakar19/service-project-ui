@@ -9,6 +9,7 @@ import { AppState } from 'src/app/state/state';
 import { loadServicesProvider, setService } from '../state/list-services.actions';
 import { getService, getServiceProvider } from '../state/list-services.selectors';
 import { cloneDeep } from 'lodash';
+import { addToCart } from '../../cart/state/cart.actions';
 
 @Component({
   selector: 'app-service',
@@ -60,6 +61,12 @@ export class ServiceComponent implements OnInit {
   // }
 
   addToCart(service: Service) {
+    //  TODO: get customer id here and remove hardcoded value
+    const details = { service_id: service.serviceId, customer_id: 'f4f0f5b0-3355-4a8d-b8c3-dd6043136f52' };
+    // TODO: fix CORS error here
+    // this.store.dispatch(setLoading({ status: true }));
+    // this.store.dispatch(addToCart({ details }));
+
     if (!localStorage.getItem('cart')) {
       this.cartList.push(service);
       localStorage.setItem('cart', JSON.stringify(this.cartList));

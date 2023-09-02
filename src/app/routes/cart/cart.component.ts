@@ -8,7 +8,7 @@ import { Service } from 'src/app/models/service';
 import { Transaction } from 'src/app/models/transaction';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { addBilling, addTransaction, setCartList } from './state/cart.actions';
+import { addBilling, addTransaction, getCartListAction, setCartList } from './state/cart.actions';
 import { getBilling, getCartList } from './state/cart.selectors';
 
 @Component({
@@ -43,7 +43,12 @@ export class CartPageComponent implements OnInit {
     const spIds = new Set();
     const allServices = [];
 
+    // TODO: get customer id from store
+    // const customerId = 'f4f0f5b0-3355-4a8d-b8c3-dd6043136f52';
+    //TODO: this action updates the store little late so this.cartList goes empty at first
+    // this.store.dispatch(getCartListAction({ customerId }));
     this.store.dispatch(setCartList({ cartList }));
+
     this.cartList$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.cartList = res;
     });
@@ -79,7 +84,7 @@ export class CartPageComponent implements OnInit {
 
     this.billing.totalCost = 0;
     this.billing.customerId = this.customer.customerId;
-    this.billing.gst = 6;
+    this.billing.gst = 6; // 6% GST
     this.billing.serviceProviderId = serviceList[0].serviceProviderId;
     this.addBilling(this.billing, serviceList);
   }
