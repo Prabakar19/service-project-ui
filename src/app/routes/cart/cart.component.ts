@@ -80,6 +80,7 @@ export class CartPageComponent implements OnInit {
     this.billing.totalCost = 0;
     this.billing.customerId = this.customer.customerId;
     this.billing.gst = 6; // 6% GST
+    // TODO - look at billing table, some columns are null, pass the values for that columns/calcualte in BE
     this.billing.serviceProviderId = serviceList[0].serviceProviderId;
     this.addBilling(this.billing, serviceList);
   }
@@ -90,7 +91,7 @@ export class CartPageComponent implements OnInit {
       this.billing = res;
       if (this.billing) {
         this.addTransactionsList(serviceList);
-        // this.deleteCheckedOutHandler(serviceList);
+        this.deleteCheckedOutHandler(serviceList);
       }
     });
   }
