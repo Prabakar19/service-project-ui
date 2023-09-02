@@ -1,0 +1,1 @@
+1. Fix customer registration flow
