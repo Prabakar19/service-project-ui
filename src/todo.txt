@@ -1,1 +1,3 @@
 1. Fix customer registration flow
+2. Load customer details to the store whenever the page refresh
+3. Remove storing of customer details in session storage
