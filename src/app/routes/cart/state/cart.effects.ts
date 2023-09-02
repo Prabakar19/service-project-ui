@@ -9,12 +9,12 @@ import { AppState } from 'src/app/state/state';
 import {
   addBilling,
   addBillingSuccess,
-  addTransaction,
-  addTransactionSuccess,
   addToCart,
   addToCartSuccess,
   setCartList,
   getCartListAction,
+  addTransactions,
+  addTransactionsSuccess,
 } from './cart.actions';
 import { isObject, isNull } from 'lodash';
 import { CartService } from 'src/app/services/cart-service/cart-serivice.service';
@@ -47,14 +47,14 @@ export class CartEffects {
     )
   );
 
-  addTransaction$ = createEffect(() =>
+  addTransactions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addTransaction),
+      ofType(addTransactions),
       mergeMap((action) =>
-        this.billingService.addTransactionRequest(action.transaction).pipe(
-          map((transaction) => {
+        this.billingService.addTransactionListRequest(action.transactions).pipe(
+          map((data) => {
             this.store.dispatch(setLoading({ status: false }));
-            return addTransactionSuccess({ transaction });
+            return addTransactionsSuccess({ data });
           }),
           catchError((error) => {
             const errorMsg = isObject(error.error) || isNull(error.error) ? 'some error occurred' : error.error;
