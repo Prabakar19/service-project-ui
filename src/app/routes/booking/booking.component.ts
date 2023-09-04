@@ -25,7 +25,7 @@ export class BookingComponent implements OnInit {
   transactions: Transaction[];
   currentList = [];
   completedList = [];
-  ratingList: Array<number> = [];
+  ratingList: Array<number> = [1, 2, 3, 4, 5];
 
   transactions$: Observable<Transaction[]>;
   private unsubscribe$ = new Subject<void>();
@@ -38,8 +38,6 @@ export class BookingComponent implements OnInit {
     this.customer = JSON.parse(localStorage.getItem('token'));
     // TODO - get customer from state
     this.getAllTransactions(this.customer.customerId);
-    for (let i = 1; i <= 5; i++) this.ratingList.push(i);
-    // TODO - need to get rid of this way of rating list
   }
 
   getAllTransactions(custId) {
@@ -82,7 +80,8 @@ export class BookingComponent implements OnInit {
   updateRating(rate: number, txn: Transaction) {
     const transaction = cloneDeep(txn);
     transaction.transactionRating = rate;
-    this.store.dispatch(updateRating({ transaction, txnId: transaction.transactionId }));
+    const rating = { rating: rate };
+    this.store.dispatch(updateRating({ rating, txnId: transaction.transactionId }));
   }
 
   sortBy(key) {
