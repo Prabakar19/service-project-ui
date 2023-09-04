@@ -45,7 +45,7 @@ export class BookingEffects {
     this.actions$.pipe(
       ofType(updateRating),
       mergeMap((action) =>
-        this.billingService.updateTransactionRequest(action.transaction, action.txnId).pipe(
+        this.billingService.updateTransactionRequest(action.rating, action.txnId).pipe(
           map((transaction) => {
             this.store.dispatch(setLoading({ status: false }));
             return updateRatingSuccess({ transaction });
