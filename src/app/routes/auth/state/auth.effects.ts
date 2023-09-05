@@ -121,7 +121,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(updateCust),
       mergeMap((action) => {
-        return this.customerService.updateCustomerRequest(action.customer, action.customer.customerId).pipe(
+        return this.customerService.updateCustomerRequest(action.customer).pipe(
           map((customer) => {
             this.store.dispatch(setLoading({ status: false }));
             return updateCustSucess({ customer });

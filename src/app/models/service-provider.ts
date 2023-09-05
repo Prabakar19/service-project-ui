@@ -7,7 +7,7 @@ export interface ServiceProvider {
   companyName: string;
   ownerName: string;
   emailId: string;
-  phoneNum: string;
+  phoneNumber: string;
   password: string;
   spRating: number;
   // serviceProviderPic: string;

@@ -34,7 +34,7 @@ export class CustomerProfileComponent implements OnInit {
     firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
     lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30), Validators.pattern('[a-zA-Z]+')]],
     emailId: ['', [Validators.email, Validators.required]],
-    phoneNum: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
 
@@ -81,19 +81,18 @@ export class CustomerProfileComponent implements OnInit {
       firstName: this.customer.firstName,
       lastName: this.customer.lastName,
       emailId: this.customer.emailId,
-      phoneNum: this.customer.phoneNum,
-      password: '*******',
+      phoneNumber: this.customer.phoneNumber,
+      password: '**********',
     });
 
     this.updationForm.controls.firstName.disable();
     this.updationForm.controls.lastName.disable();
     this.updationForm.controls.emailId.disable();
-    this.updationForm.controls.phoneNum.disable();
+    this.updationForm.controls.phoneNumber.disable();
     this.updationForm.controls.password.disable();
   }
 
   addAddressToForm() {
-    console.log(this.address);
     this.addressForm.setValue({
       houseAddress: this.address.houseAddress,
       area: this.address.area,
@@ -111,6 +110,7 @@ export class CustomerProfileComponent implements OnInit {
     this.addressForm.controls.pincode.disable();
   }
 
+  // TODO: change edit profile design - should be able to edit all the fields at once
   openDialog(value) {
     if (value === 'password') {
       const dialogRef = this.dialog.open(EditCustomerComponent, {

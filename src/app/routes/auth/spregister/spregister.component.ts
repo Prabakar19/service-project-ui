@@ -30,7 +30,7 @@ export class RegistrationSpComponent implements OnInit {
     companyName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
     ownerName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30), Validators.pattern('^[a-zA-Z].*[\\s.]*$')]],
     emailId: ['', [Validators.email, Validators.required]],
-    phoneNum: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
 
