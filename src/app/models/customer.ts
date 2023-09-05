@@ -6,7 +6,7 @@ export interface Customer {
   firstName: string;
   lastName: string;
   emailId: string;
-  phoneNum: string;
+  phoneNumber: string;
   password: string;
   // address?: Address;
   customerPic?: any;

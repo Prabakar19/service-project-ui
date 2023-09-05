@@ -9,7 +9,7 @@ import { Chart } from 'node_modules/chart.js';
   styleUrls: ['./sp-report.component.css'],
 })
 export class SpReportComponent implements OnInit {
-  spId = 1;
+  spId = '49d04229-be01-4acb-9abd-6dfa663d0dd1';
   constructor(private serviceProviderService: ServiceProviderService, private downloadService: DownloadServiceService) {}
 
   billings: any;
@@ -72,7 +72,7 @@ export class SpReportComponent implements OnInit {
     'serviceRatings',
     'warranty',
   ];
-  customerHeader = ['emailId', 'firstName', 'lastName', 'phoneNum'];
+  customerHeader = ['emailId', 'firstName', 'lastName', 'phoneNumber'];
   download() {
     this.downloadService.downloadFile(this.store.billings, 'billings', this.billingHeaader);
   }
