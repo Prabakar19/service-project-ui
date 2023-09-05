@@ -14,6 +14,8 @@ export const updateCustSucess = createAction('[CUST] Update Customer Success', p
 export const updateCustAddress = createAction('[CUST] Update Customer Address', props<{ address: Address; addressId: string }>());
 export const updateCustAddressSucess = createAction('[CUST] Update Customer Address Success', props<{ address: Address }>());
 export const setCustomer = createAction('[CUST] Set Customer', props<{ customer }>());
+export const getCustomerAddress = createAction('[CUST] Get Customer Address', props<{ customerId }>());
+export const getCustomerAddressSuccess = createAction('[CUST] Get Customer Address Success', props<{ address }>());
 
 export const spLogin = createAction('[SP] Login', props<{ emailId: string; password: string }>());
 export const spLoginSucess = createAction('[SP] Login Success', props<{ serviceProvider: ServiceProvider }>());
