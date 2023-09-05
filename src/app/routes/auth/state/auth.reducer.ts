@@ -8,6 +8,7 @@ import {
   custLoginSucess,
   custRegister,
   custRegisterSucess,
+  getCustomerAddressSuccess,
   setCustomer,
   spLogin,
   spLoginSucess,
@@ -19,6 +20,7 @@ import {
 
 export const initialState = {
   customer: null,
+  custAddress: null,
   serviceProvider: null,
 };
 
@@ -28,6 +30,10 @@ const _environmentReducer = createReducer(
   on(custLoginSucess, (state, props) => ({
     ...state,
     customer: props.customer,
+  })),
+  on(getCustomerAddressSuccess, (state, props) => ({
+    ...state,
+    custAddress: props.address,
   })),
   on(custRegister, (state, props) => state),
   on(custRegisterSucess, (state, props) => ({

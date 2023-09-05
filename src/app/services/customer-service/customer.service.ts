@@ -6,34 +6,38 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CustomerServices {
-  root = 'api/customer';
+  cust_root = 'api/customer';
   addressUrl = 'api/address/';
 
   constructor(private http: HttpClient) {}
 
   addCustomerRequest(data: any): Observable<any> {
-    return this.http.post<any>(this.root, data);
+    return this.http.post<any>(this.cust_root, data);
   }
 
-  addCustomerAddressReq(data: any, custId: number): Observable<any> {
+  addCustomerAddressReq(data: any, custId: string): Observable<any> {
     return this.http.post<any>(this.addressUrl + 'customer/' + custId, data);
   }
 
+  getCustomerAddressReq(custId: string): Observable<any> {
+    return this.http.get<any>(this.cust_root + '/address/' + custId);
+  }
+
   customerLoginRequest(data: any): Observable<any> {
-    return this.http.post<any>(this.root + '/login', data);
+    return this.http.post<any>(this.cust_root + '/login', data);
   }
 
   customerFetch(data: number): Observable<any> {
-    return this.http.get<any>(this.root + '/id/' + data);
+    return this.http.get<any>(this.cust_root + '/id/' + data);
   }
 
-  updateCustomerRequest(data: any, id: number): Observable<any> {
-    return this.http.put<any>(this.root + '/id/' + id, data);
+  updateCustomerRequest(data: any, id: string): Observable<any> {
+    return this.http.put<any>(this.cust_root + '/id/' + id, data);
   }
-  updateAddressRequest(data: any, id: number): Observable<any> {
+  updateAddressRequest(data: any, id: string): Observable<any> {
     return this.http.put<any>(this.addressUrl + id, data);
   }
-  uploadImageRequest(data: any, id: number): Observable<any> {
-    return this.http.post<any>(this.root + '/image/' + id, data);
+  uploadImageRequest(data: any, id: string): Observable<any> {
+    return this.http.post<any>(this.cust_root + '/image/' + id, data);
   }
 }

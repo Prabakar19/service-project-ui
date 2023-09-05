@@ -17,6 +17,8 @@ import {
   custLoginSucess,
   custRegister,
   custRegisterSucess,
+  getCustomerAddress,
+  getCustomerAddressSuccess,
   spLogin,
   spLoginSucess,
   spRegister,
@@ -142,6 +144,25 @@ export class AuthEffects {
           map((customer) => {
             this.store.dispatch(setLoading({ status: false }));
             return addCustomerAddressSucess({ customer });
+          }),
+          catchError((error) => {
+            const errorMsg = 'error';
+            this.store.dispatch(setLoading({ status: false }));
+            return of(setErrorMessage({ errorMsg }));
+          })
+        );
+      })
+    )
+  );
+
+  getCustomerAddress$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCustomerAddress),
+      mergeMap((action) => {
+        return this.customerService.getCustomerAddressReq(action.customerId).pipe(
+          map((address) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return getCustomerAddressSuccess({ address });
           }),
           catchError((error) => {
             const errorMsg = 'error';

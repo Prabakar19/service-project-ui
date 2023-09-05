@@ -19,6 +19,7 @@ import { spDashBoardReducer } from '../routes/sp-dashboard/state/sp-dashboard.re
 import { SPDashboardEffects } from '../routes/sp-dashboard/state/sp-dashboard.effects';
 import { ManageCustomerReducer } from '../routes/manage-customers/state/manage.customers.reducers';
 import { ManageCustomerEffects } from '../routes/manage-customers/state/manage.customers.effects';
+import { Address } from '../models/address';
 
 export interface DashboardState {
   category: Category[];
@@ -43,6 +44,7 @@ export interface Booking {
 
 export interface EnvironmentState {
   customer: Customer;
+  custAddress: Address;
   serviceProvider: ServiceProvider;
 }
 

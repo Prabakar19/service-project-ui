@@ -16,19 +16,19 @@ export class ServiceProviderService {
   addServiceProviderRequest(data: any): Observable<any> {
     return this.http.post<any>(this.root, data);
   }
-  addServiceProviderAddressReq(data: any, spId: number): Observable<any> {
+  addServiceProviderAddressReq(data: any, spId: string): Observable<any> {
     return this.http.post<any>(this.address + spId, data);
   }
-  getServiceProviderRequest(id: number): Observable<any> {
+  getServiceProviderRequest(id: string): Observable<any> {
     return this.http.get<any>(this.root + '/' + id);
   }
-  getServiceProviderReport(id: number): Observable<any> {
+  getServiceProviderReport(id: string): Observable<any> {
     return this.http.get<any>(this.root + '/report/' + id);
   }
-  updateTransactionStatusById(id: number, status: string): Observable<any> {
+  updateTransactionStatusById(id: string, status: string): Observable<any> {
     return this.http.put<any>(this.transaction + id, { status });
   }
-  getServiceTransactionCount(id: number): Observable<any> {
+  getServiceTransactionCount(id: string): Observable<any> {
     return this.http.get<any>(this.root + '/servicecount/' + id);
   }
   getSPCities(): Observable<any> {

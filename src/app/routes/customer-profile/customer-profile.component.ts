@@ -8,10 +8,11 @@ import { Customer } from 'src/app/models/customer';
 import { CustomerServices } from 'src/app/services/customer-service/customer.service';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { AppState } from 'src/app/state/state';
-import { setCustomer, updateCust, updateCustAddress } from '../auth/state/auth.actions';
-import { getCustomer } from '../auth/state/auth.selectors';
+import { getCustomerAddress, setCustomer, updateCust, updateCustAddress } from '../auth/state/auth.actions';
+import { getCustAddress, getCustomer } from '../auth/state/auth.selectors';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { cloneDeep } from 'lodash';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-customer-profile',
@@ -20,11 +21,13 @@ import { cloneDeep } from 'lodash';
 })
 export class CustomerProfileComponent implements OnInit {
   customer: Customer;
+  address: Address;
   selectedFile: File;
   retrievedImage: any;
   errorMessage = '';
 
   customer$: Observable<Customer>;
+  address$: Observable<Address>;
   private unsubscribe$ = new Subject<void>();
 
   updationForm = this.fb.group({
@@ -51,15 +54,26 @@ export class CustomerProfileComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.customer$ = this.store.select(getCustomer);
+    this.address$ = this.store.select(getCustAddress);
   }
 
   ngOnInit(): void {
     this.customer = JSON.parse(localStorage.getItem('token'));
     this.store.dispatch(setCustomer({ customer: this.customer }));
+    this.getCustomerAddress(this.customer.customerId);
+    this.address$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.address = res;
+      if (this.address) {
+        this.addAddressToForm();
+      }
+    });
     this.retrievedImage = this.customer.customerPic;
 
     this.addCustomerToForm();
-    this.addAddressToForm();
+  }
+
+  getCustomerAddress(customerId: string) {
+    this.store.dispatch(getCustomerAddress({ customerId }));
   }
 
   addCustomerToForm() {
@@ -79,13 +93,14 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   addAddressToForm() {
+    console.log(this.address);
     this.addressForm.setValue({
-      houseAddress: this.customer.address.houseAddress,
-      area: this.customer.address.area,
-      city: this.customer.address.city,
-      state: this.customer.address.state,
-      country: this.customer.address.country,
-      pincode: this.customer.address.pincode,
+      houseAddress: this.address.houseAddress,
+      area: this.address.area,
+      city: this.address.city,
+      state: this.address.state,
+      country: this.address.country,
+      pincode: this.address.pincode,
     });
 
     this.addressForm.controls.houseAddress.disable();
@@ -127,14 +142,14 @@ export class CustomerProfileComponent implements OnInit {
   openDialogAddr(value) {
     const dialogRef = this.dialog.open(EditCustomerComponent, {
       height: 'auto',
-      data: this.customer.address[value],
+      data: this.address[value],
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const cust = cloneDeep(this.customer);
         cust.address[value] = result;
         this.customer = cust;
-        this.updateAddress(this.customer.address);
+        this.updateAddress(this.address);
         this.addressForm.controls[value] = result;
       }
     });
