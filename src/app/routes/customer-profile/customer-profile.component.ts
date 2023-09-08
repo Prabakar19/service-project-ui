@@ -146,9 +146,10 @@ export class CustomerProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const cust = cloneDeep(this.customer);
-        cust.address[value] = result;
-        this.customer = cust;
+        const address = cloneDeep(this.address);
+        console.log(value, result);
+        address[value] = result;
+        this.address = address;
         this.updateAddress(this.address);
         this.addressForm.controls[value] = result;
       }
@@ -166,7 +167,7 @@ export class CustomerProfileComponent implements OnInit {
 
   updateAddress(addr) {
     this.store.dispatch(setLoading({ status: true }));
-    this.store.dispatch(updateCustAddress({ address: addr, addressId: addr.addressId }));
+    this.store.dispatch(updateCustAddress({ address: addr }));
     this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.customer = res;
       localStorage.setItem('token', JSON.stringify(this.customer));

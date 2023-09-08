@@ -34,8 +34,8 @@ export class CustomerServices {
   updateCustomerRequest(data: any): Observable<any> {
     return this.http.put<any>(this.cust_root, data);
   }
-  updateAddressRequest(data: any, id: string): Observable<any> {
-    return this.http.put<any>(this.addressUrl + id, data);
+  updateAddressRequest(data: any): Observable<any> {
+    return this.http.put<any>(this.addressUrl, data);
   }
   uploadImageRequest(data: any, id: string): Observable<any> {
     return this.http.post<any>(this.cust_root + '/image/' + id, data);
