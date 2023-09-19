@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CustomerServices {
   cust_root = 'api/customer';
-  addressUrl = 'api/address/';
+  addressUrl = 'api/address';
 
   constructor(private http: HttpClient) {}
 
