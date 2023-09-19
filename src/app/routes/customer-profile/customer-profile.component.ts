@@ -168,9 +168,9 @@ export class CustomerProfileComponent implements OnInit {
   updateAddress(addr) {
     this.store.dispatch(setLoading({ status: true }));
     this.store.dispatch(updateCustAddress({ address: addr }));
-    this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
-      this.customer = res;
-      localStorage.setItem('token', JSON.stringify(this.customer));
+    this.address$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      this.address = res;
+      console.log(this.address);
     });
   }
 

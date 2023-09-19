@@ -51,10 +51,7 @@ const _environmentReducer = createReducer(
   })),
   on(updateCustAddressSucess, (state, props) => ({
     ...state,
-    customer: {
-      ...state.customer,
-      address: props.address,
-    },
+    custAddress: props.address,
   })),
   on(setCustomer, (state, props) => ({
     ...state,
