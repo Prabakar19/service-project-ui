@@ -51,6 +51,7 @@ export interface EnvironmentState {
 export interface SPDashboardSate {
   serviceProvider: ServiceProvider;
   category: Category[];
+  services: Service[];
 }
 
 export interface ManageCustomerSate {

@@ -1,10 +1,18 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { SPDashboardSate } from 'src/app/state/state';
-import { addServiceSuccess, editServiceSuccess, getSPSuccess, loadCategorySuccess, removeServiceSuccess } from './sp-dashboard.actions';
+import {
+  addServiceSuccess,
+  editServiceSuccess,
+  getSPSuccess,
+  getServiceListSuccess,
+  loadCategorySuccess,
+  removeServiceSuccess,
+} from './sp-dashboard.actions';
 
 export const initialState: SPDashboardSate = {
   serviceProvider: null,
   category: [],
+  services: [],
 };
 
 const _spDashBoardReducer = createReducer(
@@ -13,23 +21,27 @@ const _spDashBoardReducer = createReducer(
     ...state,
     serviceProvider: props.serviceProvider,
   })),
+  on(getServiceListSuccess, (state, props) => ({
+    ...state,
+    services: props.serviceList,
+  })),
   on(loadCategorySuccess, (state, props) => ({
     ...state,
     category: props.categories,
   })),
   on(addServiceSuccess, (state, props) => ({
     ...state,
-    serviceProvider: { ...state.serviceProvider, services: [...state.serviceProvider.services, props.service] },
+    services: [...state.services, props.service],
   })),
   on(editServiceSuccess, (state, props) => ({
     ...state,
-    serviceProvider: { ...state.serviceProvider, services: [...state.serviceProvider.services, props.service] },
+    services: [...state.services, props.service],
   })),
   on(removeServiceSuccess, (state, props) => {
-    const services = state.serviceProvider.services.filter((service) => service.serviceId !== props.serviceId);
+    const services = state.services.filter((service) => service.serviceId !== props.serviceId);
     return {
       ...state,
-      serviceProvider: { ...state.serviceProvider, services: services },
+      services: services,
     };
   })
 );

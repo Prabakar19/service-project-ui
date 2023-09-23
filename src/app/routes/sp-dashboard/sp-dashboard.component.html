@@ -13,8 +13,8 @@
 
 <mat-divider></mat-divider>
 <div class="sub-title">My Services</div>
-<table *ngIf="serviceProvider">
-  <tr *ngFor="let service of serviceProvider.services">
+<table *ngIf="serviceList">
+  <tr *ngFor="let service of serviceList">
     <td>
       <mat-divider></mat-divider>
       <app-sp-service-card class="inline" [service]="service" [button]="true"> </app-sp-service-card>
