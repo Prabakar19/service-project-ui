@@ -9,7 +9,7 @@ export class ServiceService {
   root = 'api/service';
 
   constructor(private http: HttpClient) {}
-  getServiceByIdRequest(id: number): Observable<any> {
+  getServiceByIdRequest(id: string): Observable<any> {
     return this.http.get<any>(this.root + '/id/' + id);
   }
 
@@ -17,22 +17,26 @@ export class ServiceService {
     return this.http.post<any>(this.root, data);
   }
 
-  modifyServiceRequest(data: any, id: number): Observable<any> {
+  modifyServiceRequest(data: any, id: string): Observable<any> {
     return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
-  deleteServiceRequest(id: number): Observable<any> {
+  deleteServiceRequest(id: string): Observable<any> {
     const requestOptions: Object = {
       responseType: 'text',
     };
     return this.http.delete<any>(this.root + '/id/' + id, requestOptions);
   }
 
-  updateServiceRequest(data: any, id: number): Observable<any> {
+  updateServiceRequest(data: any, id: string): Observable<any> {
     return this.http.put<any>(this.root + '/id/' + id, data);
   }
 
   getServiceList(id: string, name: string): Observable<any> {
     return this.http.get<any>(this.root + '/' + id + '/' + name);
+  }
+
+  getSPServiceList(serviceProviderId: string): Observable<any> {
+    return this.http.get<any>(this.root + '/serviceprovider/' + serviceProviderId);
   }
 }

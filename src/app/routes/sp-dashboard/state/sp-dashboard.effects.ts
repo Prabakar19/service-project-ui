@@ -18,6 +18,9 @@ import {
   getSP,
   getSPFailure,
   getSPSuccess,
+  getServiceList,
+  getServiceListFailure,
+  getServiceListSuccess,
   loadCategory,
   loadCategoryFailure,
   loadCategorySuccess,
@@ -46,6 +49,21 @@ export class SPDashboardEffects {
             return getSPSuccess({ serviceProvider });
           }),
           catchError((error) => of(getSPFailure({ error })))
+        )
+      )
+    )
+  );
+
+  getServiceList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getServiceList),
+      mergeMap((action) =>
+        this.serviceService.getSPServiceList(action.serviceProviderId).pipe(
+          map((serviceList) => {
+            this.store.dispatch(setLoading({ status: false }));
+            return getServiceListSuccess({ serviceList });
+          }),
+          catchError((error) => of(getServiceListFailure({ error })))
         )
       )
     )
