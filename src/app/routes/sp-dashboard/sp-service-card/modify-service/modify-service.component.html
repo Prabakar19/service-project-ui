@@ -17,6 +17,12 @@
             <mat-option value="{{ cat.categoryId }}" *ngFor="let cat of category">{{ cat.categoryName }}</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option value="{{ city }}" *ngFor="let city of cities">{{ city }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-grid-list>
 
       <mat-grid-list cols="3" rowHeight="4:1.5">
@@ -26,7 +32,7 @@
         </mat-form-field>
 
         <span (click)="toggle()" class="checkbox">
-          <input type="checkbox" [checked]="!discountCheck" formControlName="discountAvailability" />
+          <input type="checkbox" [checked]="!isDiscountAvailable" formControlName="discountAvailability" />
           <mat-label>Discount Availability</mat-label>
         </span>
 

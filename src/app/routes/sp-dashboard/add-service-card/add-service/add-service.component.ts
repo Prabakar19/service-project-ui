@@ -20,11 +20,11 @@ import { getCities } from 'src/app/routes/customer-dashboard/state/customer-dash
 })
 export class AddServiceComponent implements OnInit {
   errorMessage = '';
-  cities = ['Chennai'];
+  cities = [];
   serviceProvider: ServiceProvider;
   category: Category[];
   categoryNameList: string[];
-  discountCheck = false;
+  isDiscountAvailable = false;
 
   serviceProvider$: Observable<ServiceProvider>;
   categoryList$: Observable<Category[]>;
@@ -34,7 +34,7 @@ export class AddServiceComponent implements OnInit {
   addServiceForm = this.fb.group({
     serviceName: ['', [Validators.required]],
     cost: ['', [Validators.required]],
-    discount: ['', []],
+    discount: [0, []],
     discountAvailability: [false, []],
     details: ['', [Validators.required]],
     warranty: ['', [Validators.required]],
@@ -53,7 +53,6 @@ export class AddServiceComponent implements OnInit {
     });
     this.getAllCategories();
     this.getAllCities();
-    this.toggle();
   }
 
   getAllCategories() {
@@ -86,11 +85,13 @@ export class AddServiceComponent implements OnInit {
   }
 
   toggle() {
-    if (this.discountCheck) {
+    console.log(this.isDiscountAvailable);
+    this.isDiscountAvailable = !this.isDiscountAvailable;
+    if (this.isDiscountAvailable) {
       this.addServiceForm.controls.discount.enable();
     } else {
       this.addServiceForm.controls.discount.disable();
     }
-    this.discountCheck = !this.discountCheck;
+    console.log(this.isDiscountAvailable);
   }
 }

@@ -33,8 +33,8 @@ import { ManageCustomersComponent } from './routes/manage-customers/manage-custo
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
 import { SPDashboardComponent } from './routes/sp-dashboard/sp-dashboard.component';
 import { AddServiceComponent } from './routes/sp-dashboard/add-service-card/add-service/add-service.component';
-import { ModifyServiceComponent } from './routes/sp-dashboard/modify-service/modify-service.component';
-import { DeleteServiceComponent } from './routes/sp-dashboard/delete-service/delete-service.component';
+import { ModifyServiceComponent } from './routes/sp-dashboard/sp-service-card/modify-service/modify-service.component';
+import { DeleteServiceComponent } from './routes/sp-dashboard/sp-service-card/delete-service/delete-service.component';
 import { SpServiceCardComponent } from './routes/sp-dashboard/sp-service-card/sp-service-card.component';
 import { CustomerProfileComponent } from './routes/customer-profile/customer-profile.component';
 import { EditCustomerComponent } from './routes/customer-profile/edit-customer/edit-customer.component';
