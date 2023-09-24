@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Service } from 'src/app/models/service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModifyServiceComponent } from 'src/app/routes/sp-dashboard/modify-service/modify-service.component';
-import { DeleteServiceComponent } from 'src/app/routes/sp-dashboard/delete-service/delete-service.component';
+import { ModifyServiceComponent } from 'src/app/routes/sp-dashboard/sp-service-card/modify-service/modify-service.component';
+import { DeleteServiceComponent } from 'src/app/routes/sp-dashboard/sp-service-card/delete-service/delete-service.component';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/state';
 import { setLoading } from 'src/app/state/shared/shared.actions';
@@ -22,10 +22,6 @@ export class SpServiceCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrievedImage = 'data:image/jpeg;base64,' + this.service.servicePic;
-  }
-
-  calculateCost(cost: number, discount: number): number {
-    return Math.round(cost - (discount / 100) * cost);
   }
 
   editService() {

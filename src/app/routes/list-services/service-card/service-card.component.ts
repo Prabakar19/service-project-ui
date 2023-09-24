@@ -21,6 +21,7 @@ export class ServiceCardComponent implements OnInit {
     this.retrievedImage = 'data:image/jpeg;base64,' + this.service.servicePic;
   }
 
+  // TODO: Remove this function
   calculateCost(cost: number, discount: number): number {
     return Math.round(cost - (discount / 100) * cost);
   }

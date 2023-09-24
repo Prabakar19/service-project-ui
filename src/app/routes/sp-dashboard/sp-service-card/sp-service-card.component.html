@@ -9,7 +9,7 @@
         >{{ service.details }}
         <div class="cost">
           <h4 *ngIf="service.discountAvailability; else elseBlock">
-            ₹{{ calculateCost(service.cost, service.discount) }}
+            ₹{{ service.discountedCost }}
             <span>
               <del>₹{{ service.cost }}</del> {{ service.discount }}% off
             </span>

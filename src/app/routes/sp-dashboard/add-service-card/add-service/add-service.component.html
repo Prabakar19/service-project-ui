@@ -37,7 +37,7 @@
         </mat-form-field>
 
         <span (click)="toggle()" class="checkbox">
-          <input type="checkbox" [checked]="!discountCheck" formControlName="discountAvailability" />
+          <input type="checkbox" [checked]="isDiscountAvailable" formControlName="discountAvailability" />
           <mat-label>Discount Availability</mat-label>
         </span>
       </mat-grid-list>
