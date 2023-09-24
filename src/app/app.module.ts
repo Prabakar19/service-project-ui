@@ -32,7 +32,7 @@ import { ToggleButtonComponent } from './components/toggle-button/toggle-button.
 import { ManageCustomersComponent } from './routes/manage-customers/manage-customers.component';
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
 import { SPDashboardComponent } from './routes/sp-dashboard/sp-dashboard.component';
-import { AddServiceComponent } from './routes/sp-dashboard/add-service/add-service.component';
+import { AddServiceComponent } from './routes/sp-dashboard/add-service-card/add-service/add-service.component';
 import { ModifyServiceComponent } from './routes/sp-dashboard/modify-service/modify-service.component';
 import { DeleteServiceComponent } from './routes/sp-dashboard/delete-service/delete-service.component';
 import { SpServiceCardComponent } from './routes/sp-dashboard/sp-service-card/sp-service-card.component';

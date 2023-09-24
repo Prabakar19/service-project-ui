@@ -14,7 +14,7 @@ import { ManageCustomersComponent } from './routes/manage-customers/manage-custo
 import { SpReportComponent } from './routes/sp-report/sp-report.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SPDashboardComponent } from './routes/sp-dashboard/sp-dashboard.component';
-import { AddServiceComponent } from './routes/sp-dashboard/add-service/add-service.component';
+import { AddServiceComponent } from './routes/sp-dashboard/add-service-card/add-service/add-service.component';
 import { ModifyServiceComponent } from './routes/sp-dashboard/modify-service/modify-service.component';
 import { DeleteServiceComponent } from './routes/sp-dashboard/delete-service/delete-service.component';
 import { SocialMediaLoginComponent } from './routes/social-media-login/social-media-login.component';

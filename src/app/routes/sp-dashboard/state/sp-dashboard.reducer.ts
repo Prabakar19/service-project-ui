@@ -10,6 +10,7 @@ import {
 } from './sp-dashboard.actions';
 
 export const initialState: SPDashboardSate = {
+  // TODO: remove sp from here and add  in environemnt state
   serviceProvider: null,
   category: [],
   services: [],
