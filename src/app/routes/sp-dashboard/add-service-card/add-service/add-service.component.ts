@@ -6,10 +6,12 @@ import { Category } from 'src/app/models/category';
 import { ServiceProvider } from 'src/app/models/service-provider';
 import { AppState } from 'src/app/state/state';
 import { Store } from '@ngrx/store';
-import { getServiceProvider, getCategory } from '../state/sp-dashboard.selectors';
-import { addService, loadCategory } from '../state/sp-dashboard.actions';
+import { getServiceProvider, getCategory } from '../../state/sp-dashboard.selectors';
+import { addService, loadCategory } from '../../state/sp-dashboard.actions';
 import { setLoading } from 'src/app/state/shared/shared.actions';
 import { takeUntil } from 'rxjs/operators';
+import { loadCities } from 'src/app/routes/customer-dashboard/state/customer-dashboard.actions';
+import { getCities } from 'src/app/routes/customer-dashboard/state/customer-dashboard.selectors';
 
 @Component({
   selector: 'app-add-service',
@@ -18,6 +20,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AddServiceComponent implements OnInit {
   errorMessage = '';
+  cities = ['Chennai'];
   serviceProvider: ServiceProvider;
   category: Category[];
   categoryNameList: string[];
@@ -25,6 +28,7 @@ export class AddServiceComponent implements OnInit {
 
   serviceProvider$: Observable<ServiceProvider>;
   categoryList$: Observable<Category[]>;
+  cities$: Observable<string[]>;
   private unsubscribe$ = new Subject<void>();
 
   addServiceForm = this.fb.group({
@@ -35,10 +39,12 @@ export class AddServiceComponent implements OnInit {
     details: ['', [Validators.required]],
     warranty: ['', [Validators.required]],
     categoryId: ['', [Validators.required]],
+    city: ['', [Validators.required]],
   });
   constructor(private store: Store<AppState>, private http: HttpClient, private fb: FormBuilder) {
     this.serviceProvider$ = this.store.select(getServiceProvider);
     this.categoryList$ = this.store.select(getCategory);
+    this.cities$ = this.store.select(getCities);
   }
 
   ngOnInit(): void {
@@ -46,6 +52,7 @@ export class AddServiceComponent implements OnInit {
       this.serviceProvider = res;
     });
     this.getAllCategories();
+    this.getAllCities();
     this.toggle();
   }
 
@@ -55,6 +62,16 @@ export class AddServiceComponent implements OnInit {
     this.categoryList$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
       this.category = res;
       this.categoryNameList = this.category.map((cat) => cat.categoryName);
+    });
+  }
+
+  getAllCities() {
+    this.store.dispatch(setLoading({ status: true }));
+    this.store.dispatch(loadCities());
+    this.cities$.pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      if (res && res.length != 0) {
+        this.cities = res;
+      }
     });
   }
 

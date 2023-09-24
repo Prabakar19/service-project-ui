@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from 'src/app/models/service';
 import { ServiceProvider } from 'src/app/models/service-provider';
-import { AddServiceComponent } from './add-service/add-service.component';
+import { AddServiceComponent } from './add-service-card/add-service/add-service.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/state/state';
 import { Store } from '@ngrx/store';

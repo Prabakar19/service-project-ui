@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddServiceComponent } from 'src/app/routes/sp-dashboard/add-service/add-service.component';
+import { AddServiceComponent } from 'src/app/routes/sp-dashboard/add-service-card/add-service/add-service.component';
 
 @Component({
   selector: 'app-add-service-card',
