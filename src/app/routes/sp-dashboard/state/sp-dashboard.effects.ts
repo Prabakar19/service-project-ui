@@ -106,7 +106,7 @@ export class SPDashboardEffects {
     this.actions$.pipe(
       ofType(editService),
       mergeMap((action) =>
-        this.serviceService.modifyServiceRequest(action.service, action.serviceId).pipe(
+        this.serviceService.modifyServiceRequest(action.service).pipe(
           map((service) => {
             this.store.dispatch(setLoading({ status: false }));
             return editServiceSuccess({ service });

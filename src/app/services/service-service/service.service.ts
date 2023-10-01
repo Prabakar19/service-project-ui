@@ -17,8 +17,8 @@ export class ServiceService {
     return this.http.post<any>(this.root, data);
   }
 
-  modifyServiceRequest(data: any, id: string): Observable<any> {
-    return this.http.put<any>(this.root + '/id/' + id, data);
+  modifyServiceRequest(serviceData: any): Observable<any> {
+    return this.http.put<any>(this.root, serviceData);
   }
 
   deleteServiceRequest(id: string): Observable<any> {
