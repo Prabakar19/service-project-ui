@@ -83,9 +83,8 @@ export class ModifyServiceComponent implements OnInit {
   modifyService() {
     if (this.modifyServiceForm.valid) {
       const service = { ...this.serviceData, ...this.modifyServiceForm.value };
-      service.serviceProviderId = this.serviceData.serviceProviderId;
       this.store.dispatch(setLoading({ status: true }));
-      this.store.dispatch(editService({ service, serviceId: service.serviceId }));
+      this.store.dispatch(editService({ service }));
       this.modifyServiceForm.reset;
     } else {
       const dialogRef = this.dialog.open(DialogComponent, {
@@ -95,6 +94,7 @@ export class ModifyServiceComponent implements OnInit {
   }
 
   toggle() {
+    // TODO: fix discount availability true/false issue
     if (this.isDiscountAvailable) {
       this.modifyServiceForm.controls['discount'].enable();
     } else {
